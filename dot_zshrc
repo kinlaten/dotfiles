@@ -1,7 +1,8 @@
 alias dotfiles='cd ~/Documents/dotfiles/'
+alias df='df -h'
 alias gitrepo='cd ~/Documents/gitRepo/'
 #alias npm='pnpm'
-alias y='yazi'
+#alias y='yazi'
 alias cp='cp -rv '
 alias gemflash='gemini --model gemini-2.5-flash'
 alias lg='lazygit'
@@ -52,6 +53,18 @@ alias laptopscreenon='swaymsg output eDP-1 enable'
 alias laptopscreenoff='swaymsg output eDP-1 disable'
 alias dow='cd ~/Downloads/; l'
 alias clip='xclip -sel clip'
+
+function y() {
+  local tmp=$(mktemp -t "yazi-cwd.XXXXXX")
+  yazi "$@" --cwd-file="$tmp"
+  local cwd
+  cwd=$(cat "$tmp")
+  rm -f -- "$tmp"
+  if [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]
+  then
+    builtin cd "$cwd"
+  fi
+}
 
 #i3monitor(){
 #    xrandr --output $@ --auto --above eDP-1; xrandr --auto
