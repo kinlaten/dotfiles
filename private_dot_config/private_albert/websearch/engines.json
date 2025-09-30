@@ -1,0 +1,266 @@
+[
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "4be0b08c",
+        "name": "AWS doc",
+        "trigger": "aws",
+        "url": "https://www.google.com/search?q=%s+site:docs.aws.amazon.com"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":amazon",
+        "id": "c3c8e290",
+        "name": "Amazon",
+        "trigger": "az",
+        "url": "https://www.amazon.com.au/s/?field-keywords=%s"
+    },
+    {
+        "fallback": true,
+        "iconPath": ":default",
+        "id": "8e1a8cab",
+        "name": "Brave Search",
+        "trigger": "bb",
+        "url": "https://search.brave.com/search?q=%s"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "09de4bd9",
+        "name": "C++ references",
+        "trigger": "cppr",
+        "url": "https://google.com/search?q=%s+site:cppreference.com"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "b95cc108",
+        "name": "C++ studyplan.dev",
+        "trigger": "cpp",
+        "url": "https://www.google.com/search?q=%s+site:studyplan.dev"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":gpt",
+        "id": "125ee816",
+        "name": "Chat GPT",
+        "trigger": "gpt",
+        "url": "https://chat.openai.com/g/g-p-67c79c9f505c8191a92bbadc17e6d15b-edward-s-space/?q=%s"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "ee8b9487",
+        "name": "Cpp usage",
+        "trigger": "cpp",
+        "url": "https://google.com/search?q=%s+site:learncpp.com"
+    },
+    {
+        "fallback": true,
+        "iconPath": ":duckduckgo",
+        "id": "ef7bbe3e",
+        "name": "DuckDuckGo",
+        "trigger": "dd",
+        "url": "https://duckduckgo.com/?q=%s"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":ebay",
+        "id": "8d2bbde5",
+        "name": "Ebay",
+        "trigger": "eb",
+        "url": "https://www.ebay.com.au/sch/i.html?_nkw=%s&rt=nc&LH_ItemCondition=3000"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":github",
+        "id": "f1249129",
+        "name": "GitHub",
+        "trigger": "gh",
+        "url": "https://github.com/search?q=%s&type=repositories"
+    },
+    {
+        "fallback": true,
+        "iconPath": ":google",
+        "id": "11969e1b",
+        "name": "Google",
+        "trigger": "g",
+        "url": "https://www.google.com/search?q=%s"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "e988fcdd",
+        "name": "Google Images",
+        "trigger": "gi",
+        "url": "https://www.google.com/search?q=%s&tbm=isch"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":maps",
+        "id": "b9290f67",
+        "name": "Google Maps",
+        "trigger": "gm",
+        "url": "https://www.google.com/maps/search/%s/"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":scholar",
+        "id": "5b309237",
+        "name": "Google Scholar",
+        "trigger": "scholar",
+        "url": "https://scholar.google.com/scholar?q=%s"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":google_translate",
+        "id": "c08fc3c4",
+        "name": "Google Translate",
+        "trigger": "gt",
+        "url": "https://translate.google.com/?hl=vi&sl=en&tl=vi&text=%s"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "cad2645b",
+        "name": "Kagi",
+        "trigger": "k",
+        "url": "https://kagi.com/search?q=%s"
+    },
+    {
+        "fallback": false,
+        "iconPath": "file:/home/zen/.local/share/albert/websearch/555d4805.png",
+        "id": "555d4805",
+        "name": "Library Genesis",
+        "trigger": "l",
+        "url": "https://libgen.gs/index.php?req=%s"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "e1659fcf",
+        "name": "Linux Man Pages",
+        "trigger": "m",
+        "url": "https://www.mankier.com/?q=%s"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "799e8091",
+        "name": "Lyrics",
+        "trigger": "lr",
+        "url": "https://www.google.com/search?q=%s+lyric"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "088dd1c2",
+        "name": "NPM search",
+        "trigger": "npm",
+        "url": "https://www.npmjs.com/search?q=%s"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "67424330",
+        "name": "Node",
+        "trigger": "node",
+        "url": "https://www.google.com/search?q=%s+site:nodejs.org"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "734466de",
+        "name": "Odin project - Web dev",
+        "trigger": "top",
+        "url": "https://google.com/search?q=%s+site:theodinproject.com"
+    },
+    {
+        "fallback": true,
+        "iconPath": "file:/home/zen/.local/share/albert/websearch/a953c247.png",
+        "id": "a953c247",
+        "name": "Reddit",
+        "trigger": "r",
+        "url": "https://www.reddit.com/search/?q=%s"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "521dcad9",
+        "name": "Stack Overflow",
+        "trigger": "so",
+        "url": "https://www.google.com/search?q=%s+site:stackoverflow.com"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "e9bea13a",
+        "name": "TypeScript",
+        "trigger": "ts",
+        "url": "https://www.google.com/search?q=%s+site:www.tutorialsteacher.com"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "37185fa6",
+        "name": "Wiki Voyage - Travel Guide",
+        "trigger": "wv",
+        "url": "https://en.wikivoyage.org/wiki/%s"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "f5495f80",
+        "name": "Wikipedia",
+        "trigger": "wk",
+        "url": "https://en.wikipedia.org/wiki/%s"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "bdf3d48d",
+        "name": "Wiktionary",
+        "trigger": "d",
+        "url": "https://en.wiktionary.org/wiki/%s"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "7f21b1bf",
+        "name": "Wiktionary Vietnamese",
+        "trigger": "dv",
+        "url": "https://vi.wiktionary.org/wiki/%s"
+    },
+    {
+        "fallback": true,
+        "iconPath": ":youtube",
+        "id": "635b3af7",
+        "name": "YouTube",
+        "trigger": "y",
+        "url": "https://www.youtube.com/results?search_query=%s"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "005f786c",
+        "name": "Youglish",
+        "trigger": "yl",
+        "url": "https://youglish.com/pronounce/%s/english"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "eaaa39b3",
+        "name": "cpu",
+        "trigger": "cpu",
+        "url": "https://www.google.com/search?q=%s+site:cpubenchmark.net"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "eab4f325",
+        "name": "tldr",
+        "trigger": "Linux tldr",
+        "url": "https://www.google.com/search?q=%s+site:https://linuxtldr.com/"
+    }
+]

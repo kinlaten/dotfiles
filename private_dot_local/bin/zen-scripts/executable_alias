@@ -1,0 +1,34 @@
+#!/usr/bin/zsh
+function sw() {
+    lynx "https://www.wikipedia.org/w/index.php?title=Special:Search&search=$*"
+}
+
+function s() {
+    lynx "https://duckduckgo.com/?t=h_&q=$*"
+}
+
+function sl() {
+    lynx "https://www.libgen.is/search.php?req=$*&lg_topic=libgen&open=0&view=simple&res=25&phrase=1&column=def"
+}
+
+
+function sy() {
+    lynx "https://www.youtube.com/results?search_query=$*"
+}
+
+function sr() {
+    lynx "https://www.reddit.com/search/?q=$*"
+}
+
+function sgh() {
+    lynx "https://github.com/search?q=$*&type=repositories"
+}
+
+function sd() {
+    lynx "https://en.wiktionary.org/wiki/$*"
+}
+
+function slr() {
+    lynx "https://www.lyrics.com/lyrics/$*"
+}
+

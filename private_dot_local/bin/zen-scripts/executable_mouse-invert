@@ -1,0 +1,13 @@
+#!/bin/sh
+
+id=$(xinput | grep Mouse | sed -n '2p' | awk '{
+    for (i=1; i<=NF; i++) {
+        if ($i ~ /id=/) {
+            gsub(/[^0-9]/, "", $i);
+            print $i;
+            exit;
+        }
+    }
+}')
+
+xinput set-button-map "$id" 3 2 1

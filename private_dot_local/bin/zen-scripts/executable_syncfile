@@ -1,0 +1,38 @@
+#!/usr/bin/zsh
+#
+#
+# On HP laptop
+#
+#rsync -avuP --delete --no-links ~/Documents/NoteObsidian/ ~/OneDrive/Documents/NoteObsidian/
+
+# rsync -avuP   ~/.config/ /mnt/Shared_data/config/
+# rsync -avuP   ~/.config/sway/ ~/OneDrive/configs/sway/
+
+# rsync -avuP   ~/.zen_scripts/ ~/OneDrive/zen_scripts/
+#rsync -avuP   ~/.zen_scripts/ /mnt/Shared_data/zen_scripts/
+#
+#
+#rsync -avuP ~/.zshrc ~/OneDrive/configs/
+#rsync -avuP ~/.zshrc /mnt/Shared_data/config/zshrc
+
+#rsync -avuP ~/Documents/Passwords.kdbx ~/OneDrive/Passwords.kdbx 
+
+#rsync -avuP --delete ~/Music/ ~/OneDrive/Audiophile/
+
+#rsync -avuP /mnt/Shared_data/Apps/ ~/OneDrive/Apps/
+#
+#rsync -avuP  ~/CSCI235_Database_System/ ~/OneDrive/Courses/
+#rsync -avuP  ~/CSIT214 IT Project Management/ ~/OneDrive/Courses/
+#rsync -avuP  ~/ISIT212 Corporate Network Planning and Design/ ~/OneDrive/Courses/
+#rsync -avuP  ~/CSIT205_Generative_AI/ ~/OneDrive/Courses/
+
+
+
+
+## On Thinkpad
+#
+rsync -avuP --delete --no-links ~/Documents/NoteObsidian/ /media/zen/E8F7-7D34/Study/
+rsync -avuP --ignore-existing ~/Documents/Courses/ /media/zen/E8F7-7D34/Study/
+rsync -avuP --ignore-existing ~/.zen_scripts/ /media/zen/E8F7-7D34/config/
+
+
