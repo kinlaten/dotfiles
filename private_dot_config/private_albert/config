@@ -133,6 +133,7 @@ enabled=false
 enabled=true
 
 [system]
+command_hibernate=sudo systemctl hibernate
 command_poweroff=shutdown -h now
 enabled=true
 title_poweroff=Shutdown

@@ -194,6 +194,14 @@
     {
         "fallback": false,
         "iconPath": ":default",
+        "id": "b1f2f574",
+        "name": "Tailwind",
+        "trigger": "tw",
+        "url": "https://www.google.com/search?q=%s+site:tailwindcss.com"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
         "id": "e9bea13a",
         "name": "TypeScript",
         "trigger": "ts",
