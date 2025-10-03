@@ -136,6 +136,7 @@ enabled=true
 command_hibernate=sudo systemctl hibernate
 command_poweroff=shutdown -h now
 enabled=true
+hibernate_enabled=true
 title_poweroff=Shutdown
 title_suspend=Sleep
 
