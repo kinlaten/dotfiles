@@ -1,4 +1,5 @@
 alias dotfiles='cd ~/Documents/dotfiles/'
+alias backup-paperless='docker exec -t paperless-db-1 pg_dump -Fc -U postgres paperless > paperless_db_backup_$(date -Idate).bak'
 alias df='df -h'
 alias gitrepo='cd ~/Documents/gitRepo/'
 #alias npm='pnpm'
