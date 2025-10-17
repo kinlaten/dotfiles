@@ -34,7 +34,7 @@ Then use git to push to remote repo as usual.
 
 ## Install essential packages
 ```sh 
-sudo apt install -y gh nemo zsh z4h curl wget git lsd brave-browser rofi nitrogen nicotine
+sudo apt install -y gh nemo zsh z4h curl wget git lsd brave-browser rofi nitrogen nicotine thunar flatpak
 zsh
 
 # Chezmoi
