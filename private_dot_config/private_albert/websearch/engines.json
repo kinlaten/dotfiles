@@ -170,6 +170,14 @@
     {
         "fallback": false,
         "iconPath": ":default",
+        "id": "2ba963ae",
+        "name": "Nuget - DotNet Package Manager",
+        "trigger": "nu",
+        "url": "https://www.nuget.org/packages?q=%s&tfms=net9.0&includeComputedFrameworks=true&frameworkFilterMode=all&prerel=true"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
         "id": "734466de",
         "name": "Odin project - Web dev",
         "trigger": "top",
