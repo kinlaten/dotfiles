@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Obsidian
+Comment=Note-Taking App
+GenericName=Text Editor
+Exec=/home/ed/.local/bin/obsidian --no-sandbox %u
+Terminal=false
+StartupWMClass=obsidian
+Categories=Office;Utility;

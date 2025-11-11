@@ -133,7 +133,7 @@
         "id": "555d4805",
         "name": "Library Genesis",
         "trigger": "l",
-        "url": "https://libgen.gs/index.php?req=%s"
+        "url": "https://libgen.li/index.php?req=%s"
     },
     {
         "fallback": false,

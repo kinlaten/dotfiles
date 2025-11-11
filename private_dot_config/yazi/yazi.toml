@@ -1,0 +1,15 @@
+[mgr]
+ratio=[1, 6, 3]
+sort_by="mtime"
+sort_dir_first=true
+linemode="btime"
+
+[opener]
+pdff=[
+{run='evince "$@"', desc="evince", orphan=true, for="unix"},
+{run='sioyek "$@"', desc="sioyek", orphan=true, for="unix"},
+]
+
+[open]
+rules=[{mime="application/pdf",use=["pdff","reveal"]},]
+

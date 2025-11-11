@@ -72,6 +72,12 @@ function y() {
 #    xrandr --output $@ --auto --above eDP-1; xrandr --auto
 #}
 
+lmstudio(){nohup lmstudio --no-sandbox > /dev/null 2>&1 &}
+
+sioyek(){
+    nohup sioyek $@ > /dev/null 2>&1 &
+}
+
 mygh='git@github.com:kinlaten/'
 gc() {
     git commit $@ 

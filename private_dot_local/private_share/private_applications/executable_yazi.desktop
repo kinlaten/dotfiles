@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Yazi
+GenericName=File Manger TUI
+Exec=/home/linuxbrew/.linuxbrew/bin/yazi
+Terminal=true
+Categories=System;ConsoleOnly;
+#Keywords=system;process;task
+
