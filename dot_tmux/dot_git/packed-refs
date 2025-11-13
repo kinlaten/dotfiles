@@ -1,0 +1,15 @@
+# pack-refs with: peeled fully-peeled sorted 
+2e168952e51bec8b6634167024ff9454e6170a47 refs/remotes/origin/colorschemes-and-powerline
+fd2718e21e04aaf10b86cef2c00ace49ed62b1e4 refs/remotes/origin/debian-jessy
+e475d2504f9c14e4b382c0796f77fb20ba8e6557 refs/remotes/origin/gh-pages
+d66b6c4af80107a133fc573a693de370b3be5055 refs/remotes/origin/master
+4f0794a6ef8af6722f082377ee37b6118e3b6fc7 refs/remotes/origin/mouse-off-v2.1-if-shell-debug
+34bb75f0a63412668e1ca2d6e48d5b312cb8dba7 refs/remotes/origin/osx-cwd-fix
+778dbf62f4c3d5a8b490d19a5a7eecd50c14bc4b refs/remotes/origin/public
+f487992cbd8f8077af260f5486df803d7d6d68cf refs/remotes/origin/public-old
+080c12881fffdee3da2cbf6e2329f8d3e000da55 refs/remotes/origin/solarized
+30129d5f00c7ff15de4c5338d18595220a447fcf refs/remotes/origin/tmux-2.9-fixes
+b1d9783e89b965b93ed5c12a1ebf68aecf638850 refs/remotes/origin/tmuxified-meter
+2af1335e5deb20bd530172aa6f6654e38eb5b9da refs/remotes/origin/tony
+a9d213b59a14bd66f26128af4e2ac1b52678f16c refs/remotes/origin/wsl
+c44bc3ed41928bae8b9815643b690ae266562155 refs/tags/2011
