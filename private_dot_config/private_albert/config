@@ -74,7 +74,7 @@ home\zen\nameFilters=@Invalid()
 home\zen\scanInterval=5
 home\zen\useFileSystemWatches=false
 index_file_path=true
-paths=/home/zen/Documents/Books/Academic study, /home/zen/Documents/Courses
+paths=/home/ed/Documents/Study
 trigger="f "
 
 [github]
@@ -97,6 +97,9 @@ enabled=true
 
 [python.arch_wiki]
 enabled=false
+
+[python.aur]
+enabled=true
 
 [python.bitwarden]
 enabled=false
