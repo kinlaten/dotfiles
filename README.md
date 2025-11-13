@@ -55,6 +55,10 @@ zsh
 #Github CLI
 gh auth login
 gh repo list
+
+#sysz 
+wget -O ~/.local/bin/sysz https://github.com/joehillen/sysz/releases/latest/download/sysz
+chmod +x ~/.local/bin/sysz
 ```
 
 ## Migrate config files to new system
@@ -98,7 +102,7 @@ cp -r ~/Documents/dotfiles/albert ~/.config/
 
 ## Essentials from Homebrew
 ```sh 
-brew install node fd yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide resvg imagemagick font-symbols-only-nerd-font jstkdng/programs/ueberzugpp
+brew install node fd yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide resvg imagemagick font-symbols-only-nerd-font jstkdng/programs/ueberzugpp wtfutils
 ```
 
 ## Keepassxc
