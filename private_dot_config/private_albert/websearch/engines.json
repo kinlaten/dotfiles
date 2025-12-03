@@ -274,6 +274,14 @@
     {
         "fallback": false,
         "iconPath": ":default",
+        "id": "fc552271",
+        "name": "man",
+        "trigger": "m",
+        "url": "https://www.google.com/search?sitesearch=man7.org%2Flinux%2Fman-pages&q=%s"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
         "id": "eab4f325",
         "name": "tldr",
         "trigger": "Linux tldr",

@@ -59,6 +59,7 @@ gh repo list
 #sysz 
 wget -O ~/.local/bin/sysz https://github.com/joehillen/sysz/releases/latest/download/sysz
 chmod +x ~/.local/bin/sysz
+
 ```
 
 ## Migrate config files to new system

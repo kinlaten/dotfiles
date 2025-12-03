@@ -132,6 +132,7 @@ translator=google
 
 [python.x_window_switcher]
 enabled=false
+trigger=w
 
 [python.zeal]
 enabled=false

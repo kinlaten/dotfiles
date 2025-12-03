@@ -3,6 +3,9 @@ local options = {
         lua = { "stylua" },
         javascript = { "prettier" },
         cpp = { "clang-format" },
+        cs = {"csharpier"},
+        c = { "clang-format" },
+        markdown = { "prettier" },
     },
 
     format_on_save = {
