@@ -18,3 +18,13 @@ desc = "Delete a bookmark"
 on = [ "b", "D" ]
 run = "plugin bookmarks delete_all"
 desc = "Delete all bookmarks"
+
+#[[mgr.prepend_keymap]]
+#on = [ "J" ]
+#run = "arrow 5"
+#desc = "Go down 5 lines"
+#
+#[[mgr.prepend_keymap]]
+#on = [ "K" ]
+#run = "arrow -5"
+#desc = "Go up 5 lines"

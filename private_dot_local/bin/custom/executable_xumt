@@ -1,0 +1,27 @@
+#!/usr/bin/env zsh
+
+# Set Session Name
+SESSION="Daily"
+SESSIONEXISTS=$(tmux list-sessions | grep $SESSION)
+
+# Only create tmux session if it doesn't already exist
+if [ "$SESSIONEXISTS" = "" ]
+then
+    # Main Home
+    tmux new-session -d -s $SESSION
+    tmux rename-window -t $SESSION:1 'Main' -c $HOME
+
+    # Work window
+    tmux new-window -t $SESSION:2 -n 'GitRepo' -c $HOME/Documents/gitRepo/
+
+    # Config dir
+    tmux new-window -t $SESSION:0 -n 'Config' -c $HOME/.config/ nvim
+    tmux split-window -h -t $SESSION:0 -c $HOME/.local/bin/  #Can be used to read manual
+    tmux split-window -v -t $SESSION:0 chezmoi cd
+
+    # Setup an additional shell
+    tmux new-window -t $SESSION:3 -n 'FileManager' yazi $HOME
+fi
+
+# Attach Session, on the Main window
+tmux attach-session -t $SESSION:0

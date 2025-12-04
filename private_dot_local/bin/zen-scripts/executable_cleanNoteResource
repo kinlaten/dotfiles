@@ -1,9 +1,0 @@
-#!/usr/bin/zsh
-
-for dir in /mnt/Shared_data/Documents/NoteObsidian/*/; do
-  # Check if any "Pasted image*" files exist in the directory
-  if ls "$dir/Pasted image"* >/dev/null 2>&1; then
-    mv "$dir/Pasted image"* "$dir/Resources/"
-  fi
-done
-

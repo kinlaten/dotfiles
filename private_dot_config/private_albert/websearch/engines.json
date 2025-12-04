@@ -26,6 +26,14 @@
     {
         "fallback": false,
         "iconPath": ":default",
+        "id": "82f76fec",
+        "name": "C#",
+        "trigger": "cs",
+        "url": "https://www.google.com/search?q=https://learn.microsoft.com/+%20%s"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
         "id": "09de4bd9",
         "name": "C++ references",
         "trigger": "cppr",

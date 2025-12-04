@@ -1,3 +1,0 @@
-#!/bin/sh
-sudo ln -s /mnt/zen_data/ ~
-sudo mv ~/Downloads/ /mnt/zen_data/

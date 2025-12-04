@@ -1,4 +1,0 @@
-#!/bin/bash
-
-monitor_name=$(xrandr | grep -w "connected" | awk '{print $1}' | sed -n '2p')
-xrandr --output "$monitor_name" --auto --above eDP-1; xrandr --auto
