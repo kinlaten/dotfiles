@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+while true
+        do
+maim "/home/$USER/Pictures/Screenshots/background/$(date).png"
+echo "Captured at $(date).png"
+sleep $((30 + $RANDOM % 90))
+done
+
+echo "Done! Background capture stop."

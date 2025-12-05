@@ -1,0 +1,54 @@
+#!/bin/zsh
+
+
+# Get all DP outputs and sort them in numerical order, while excluding eDP-1
+dp_outputs=$(swaymsg -t get_outputs | grep -E 'DP-[0-9]' | grep -v 'eDP-1' | grep -oP 'DP-[0-9]+' | sort -t'-' -k2 -n)
+
+# Get the count of DP outputs
+output_count=$(echo "$dp_outputs" | wc -l)
+
+# Check if the number of matching outputs is not 1
+if [ $output_count -ne 1 ]; then
+    # Disable eDP-1 if the condition is met
+    swaymsg "output eDP-1 disable"
+else
+    exit 0
+fi
+
+# Variable to track if it's the first DP output
+
+
+#swaymsg output eDP-1 position 1080 1440
+#swaymsg workspace 4 output eDP-1 
+#swaymsg workspace 5 output eDP-1 
+#swaymsg workspace 6 output eDP-1 
+#swaymsg workspace 7 output eDP-1 
+#swaymsg workspace 8 output eDP-1 
+#swaymsg workspace 9 output eDP-1 
+#swaymsg workspace 10 output eDP-1 
+
+first_dp=true
+
+# Iterate over each DP output and apply the pattern using a while loop
+echo "$dp_outputs" | while IFS= read -r output; do
+    if $first_dp; then
+        # If it's the first DP output, set it to a specific position
+        swaymsg "output $output position 0 0"
+        swaymsg workspace 1 output  $output
+        swaymsg workspace 2 output  $output
+        swaymsg workspace 3 output  $output
+        swaymsg workspace 4 output  $output
+        swaymsg workspace 5 output  $output
+
+        first_dp=false  # Set first_dp to false after the first iteration
+    else
+        # For all other DP outputs (higher number), set the position and apply a transform
+        swaymsg "output $output position 2560 0 "
+        swaymsg workspace 6 output $output
+        swaymsg workspace 7 output  $output
+        swaymsg workspace 8 output  $output
+        swaymsg workspace 9 output  $output
+        swaymsg workspace 10 output $output
+    fi
+done
+
