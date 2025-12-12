@@ -40,7 +40,7 @@ return {
         css = { "prettier" },
         html = { "prettier" },
         jsx = { "prettier" },
-        tsx = { "biome" },
+        typescriptreact = { "biome" },
         -- add/override others here, e.g.:
         -- javascript = { "biome" },
         -- typescript = { "biome" },

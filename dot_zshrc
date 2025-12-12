@@ -1,7 +1,10 @@
 alias dotfiles='cd ~/Documents/dotfiles/'
+alias m='man'
 alias backup-paperless='docker exec -t paperless-db-1 pg_dump -Fc -U postgres paperless > paperless_db_backup_$(date -Idate).bak'
 alias df='df -h'
 alias gitrepo='cd ~/Documents/gitRepo/'
+alias cd='cd $(fzf --walker dir)'
+alias cdh='\cd ~'
 #alias npm='pnpm'
 #alias y='yazi'
 alias cp='cp -rv '
@@ -31,7 +34,7 @@ alias monitorconfig='vi ~/.zen_scripts/swaymonitor'
 alias doc='cd ~/Documents/ ; l'
 alias music='cd ~/OneDrive/Audiophile/;l'
 alias vi='nvim'
-alias py='python3'
+alias py='/usr/bin/python3'
 alias ytm='yt-dlp -f 140 '
 alias mi='micro'
 alias apt='sudo apt'
@@ -40,7 +43,7 @@ alias swayconfig='nvim ~/.config/sway/config'
 alias n='nnn'
 alias sudo='sudo '
 alias la='lsd -latr --group-dirs first'
-alias l='lsd -tr --group-dirs first'
+alias l='lsd -tr --group-dirs first -F'
 alias run-httpserver='nohup python3 -m http.server 8080 -d'
 alias newghrepo="zsh /home/zen/Documents/newGhRepo.sh"
 alias free="free -h"
@@ -56,53 +59,6 @@ alias laptopscreenoff='swaymsg output eDP-1 disable'
 alias dow='cd ~/Downloads/; l'
 alias clip='xclip -sel clip'
 
-function y() {
-  local tmp=$(mktemp -t "yazi-cwd.XXXXXX")
-  yazi "$@" --cwd-file="$tmp"
-  local cwd
-  cwd=$(cat "$tmp")
-  rm -f -- "$tmp"
-  if [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]
-  then
-    builtin cd "$cwd"
-  fi
-}
-
-#i3monitor(){
-#    xrandr --output $@ --auto --above eDP-1; xrandr --auto
-#}
-
-lmstudio(){nohup lmstudio --no-sandbox > /dev/null 2>&1 &}
-
-sioyek(){
-    nohup sioyek $@ > /dev/null 2>&1 &
-}
-
-mygh='git@github.com:kinlaten/'
-gc() {
-    git commit $@ 
-}
-
-pdf(){
-  nohup zathura $1 >/dev/null 2>&1 &
-}
-
-weather() {
-  curl "http://wttr.in/$1"
-}
-
-mykill(){
-  ps aux | pgrep -x $1 | xargs kill
-}
-
-#alias genaicode='source ~/myprojectdir/myprojectenv/bin/activate; nohup jupyter notebook ~/Generative_Deep_Learning_2nd_Edition/ &'
-
-
-index(){
-  i=1; for file in *; do mv "$file" "$(printf '%02d' $i) - $file"; i=$((i+1)); done
-}
-
-export SUDO_EDITOR='nvim'
 
 alias dict='function _dict() { dict "$@" | less; }; _dict'
 
@@ -123,7 +79,7 @@ zstyle ':z4h:' auto-update-days '28'
 zstyle ':z4h:bindkey' keyboard  'pc'
 
 # Don't start tmux.
-zstyle ':z4h:' start-tmux       no
+zstyle ':z4h:' start-tmux       yes
 
 # Mark up shell's output with semantic information.
 zstyle ':z4h:' term-shell-integration 'yes'
@@ -168,7 +124,7 @@ z4h init || return
 #path=(~/bin $path)
 #path=(~/.zen_scripts/ $path)
 
-export PATH=~/.local/bin/zen-scripts/:~/bin/:~/.fly/bin/:~/.emacs.d/bin/:$PATH
+export PATH=~/.local/bin/custom/:~/bin/:~/.fly/bin/:~/.config/emacs/bin/:$PATH
 
 # Export environment variables.
 export GPG_TTY=$TTY
@@ -213,7 +169,6 @@ alias ls="${aliases[ls]:-ls} -A"
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
-alias py='python3'
 
 #eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
@@ -333,3 +288,76 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/ed/.lmstudio/bin"
+# End of LM Studio CLI section
+
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /home/linuxbrew/.linuxbrew/Cellar/terraform/1.13.5/bin/terraform terraform
+
+# ---------------------------------------------------------------------------------
+#Custom functions
+cat(){
+        command cat "$@" | less
+}
+
+pdf(){
+        local filename=$(fzf)
+        if [[ -z "$filename" ]]; then
+                return 1
+        fi
+        command nohup firefox $filename > /dev/null 2>&1 &
+}
+
+function y() {
+  local tmp=$(mktemp -t "yazi-cwd.XXXXXX")
+  yazi "$@" --cwd-file="$tmp"
+  local cwd
+  cwd=$(cat "$tmp")
+  rm -f -- "$tmp"
+  if [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]
+  then
+    builtin cd "$cwd"
+  fi
+}
+
+#i3monitor(){
+#    xrandr --output $@ --auto --above eDP-1; xrandr --auto
+#}
+
+lmstudio(){nohup lmstudio --no-sandbox > /dev/null 2>&1 &}
+
+sioyek(){
+    nohup sioyek $@ > /dev/null 2>&1 &
+}
+
+mygh='git@github.com:kinlaten/'
+gc() {
+    git commit $@ 
+}
+
+#pdf(){
+#  nohup zathura $1 >/dev/null 2>&1 &
+#}
+
+weather() {
+  curl "http://wttr.in/$1"
+}
+
+mykill(){
+  ps aux | pgrep -x $1 | xargs kill
+}
+
+#alias genaicode='source ~/myprojectdir/myprojectenv/bin/activate; nohup jupyter notebook ~/Generative_Deep_Learning_2nd_Edition/ &'
+
+
+index(){
+  i=1; for file in *; do mv "$file" "$(printf '%02d' $i) - $file"; i=$((i+1)); done
+}
+
+export SUDO_EDITOR=nvim
+export VISUAL=nvim
+export EDITOR=nvim
+
