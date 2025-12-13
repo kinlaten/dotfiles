@@ -1,4 +1,8 @@
-alias dotfiles='cd ~/Documents/dotfiles/'
+
+#copy history using fzf
+alias hisc='history -n -1000|tac|fzf|clip'
+
+alias apt='sudo apt '
 alias backup-paperless='docker exec -t paperless-db-1 pg_dump -Fc -U postgres paperless > paperless_db_backup_$(date -Idate).bak'
 alias m='man'
 alias df='df -h'
@@ -8,34 +12,27 @@ alias gitrepo='cd ~/Documents/gitRepo/'
 alias cp='cp -rv '
 alias gemflash='gemini --model gemini-2.5-flash'
 alias lg='lazygit'
-alias fs='cd ~/Documents/Courses/Fullstack/'
 alias gs='git status'
 alias lyric='vi ~/Lyrics.md'
 alias hi='history -n 30'
 alias gt='gnome-terminal'
 alias keymap='vi /usr/share/X11/xkb/rules/base.lst'
 alias emacs="emacsclient -c -a 'emacs'"
-alias fto='cd ~/fullstackopen/'
-alias odin='cd ~/theOdinProject'
 alias vpnui='/opt/cisco/secureclient/bin/vpnui'
 alias pgadmin4='~/pgadmin4/bin/pgadmin4'
 #alias psql='psql-17'
 alias suspend='sudo systemctl suspend'
 alias brave='brave-browser'
 alias wl-record='wf-recorder -a --file=/home/zen/Videos/"$(date)".mp4 -g "$(slurp)"'
-alias co='cd ~/Documents/Courses/; l'
-alias book='cd ~/Documents/Books/; l'
 alias al='nohup alacritty 2>&1 > /dev/null &'
 alias uowvpn='nohup /opt/cisco/secureclient/bin/vpnui &'
 alias docker='sudo docker'
 alias monitorconfig='vi ~/.zen_scripts/swaymonitor'
 alias doc='cd ~/Documents/ ; l'
-alias music='cd ~/OneDrive/Audiophile/;l'
 alias vi='nvim'
 alias py='/usr/bin/python3'
 alias ytm='yt-dlp -f 140 '
 alias mi='micro'
-alias apt='sudo apt'
 alias i3config='nvim ~/.config/i3/config'
 alias swayconfig='nvim ~/.config/sway/config'
 alias n='nnn'
@@ -351,6 +348,10 @@ weather() {
   curl "http://wttr.in/$1"
 }
 
+psf(){
+  ps -eo comm | awk '!seen[$0]++' |fzf
+}
+
 killf(){
   local process
   process=$(ps -eo comm | awk '!seen[$0]++'|fzf)
@@ -404,3 +405,24 @@ mf(){
     man -k .|fzf|awk '{print $2 " " $1}'|tr -d '()'|xargs man
 }
 # Add these lines to your ~/.bashrc or ~/.zshrc file
+
+hisfc() {
+    local target_command temp_file edited_command
+
+    temp_file=$(mktemp)
+
+    history -n -1000 | fzf > "$temp_file"
+   
+    if [[ ! -s "$temp_file" ]]; then
+      rm -f "$temp_file"
+      return 0
+    fi
+
+    command vi "$temp_file"
+    command cat "$temp_file" | zsh
+    command rm "$temp_file"
+}
+
+hisclip(){
+  history -n -1000 | fzf | xclip -sel clip
+}
