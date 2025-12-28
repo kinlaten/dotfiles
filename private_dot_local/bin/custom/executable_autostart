@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+source ~/.bashrc
+
+#Brave Apps
+brave-browser --app=https://gemini.google.com/app &
+brave-browser --app=https://www.perplexity.ai/ &
+
+#tmux
+alacritty -e xumt &
+
+#
+firefox &
+
+#Screen saver
+xscreensaver --no-splash &
+
+# Launcher
+albert --platform xcb &
+
+# Focus on specific window
+#xdotool search --onlyvisible --name alacritty windowactivate
