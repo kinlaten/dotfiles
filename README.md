@@ -95,7 +95,7 @@ cp -r ~/Documents/dotfiles/albert ~/.config/
 ## Essentials from Homebrew
 
 ```sh
-brew install node fd yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide resvg imagemagick font-symbols-only-nerd-font jstkdng/programs/ueberzugpp wtfutil lazygit
+brew install node fd yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide resvg imagemagick font-symbols-only-nerd-font jstkdng/programs/ueberzugpp wtfutil lazygit tmux
 ```
 
 ## Set swap to 16GB
