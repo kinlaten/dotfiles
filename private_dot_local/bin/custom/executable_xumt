@@ -1,30 +1,25 @@
 #!/usr/bin/env bash
 
-source ~/.bashrc
-
-# Set Session Name
 SESSION="Daily"
-SESSIONEXISTS=$(tmux list-sessions | grep $SESSION)
 
-# Only create tmux session if it doesn't already exist
-if [ "$SESSIONEXISTS" = "" ]; then
-  # Main Home
-  tmux new-session -d -s $SESSION
-  tmux rename-window -t $SESSION:1 'Main' -c $HOME neofetch
-  tmux split-window -h -t $SESSION:1 -c $HOME
+# Check if session exists; if not, create it
+if ! tmux has-session -t "$SESSION" 2>/dev/null; then
 
-  # Work window
-  tmux new-window -t $SESSION:2 -n 'GitRepo' -c $HOME/Documents/gitRepo/
-  tmux split-window -h -t $SESSION:2 -c $HOME/Documents/gitRepo/
+  # 1. Create Session with 'Main' window
+  tmux new-session -d -s "$SESSION" -n 'Main' -c "$HOME"
+  tmux send-keys -t "$SESSION:Main" "neofetch" Enter
+  tmux split-window -h -t "$SESSION:Main" -c "$HOME"
 
-  # Config dir
-  tmux new-window -t $SESSION:0 -n 'Config' -c $HOME/.config/ nvim +NvimTreeToggle
-  tmux split-window -h -t $SESSION:0 -c $HOME/.local/bin/custom/ #Can be used to read manual
-  # tmux split-window -v -t $SESSION:0 chezmoi cd
+  # 2. Git Window
+  tmux new-window -t "$SESSION" -n 'GitRepo' -c "$HOME/Documents/gitRepo/"
+  tmux split-window -h -t "$SESSION:GitRepo" -c "$HOME/Documents/gitRepo/"
 
-  # Setup an additional shell
-  # tmux new-window -t $SESSION:3 -n 'FileManager' yazi $HOME
+  # 3. Config Window
+  tmux new-window -t "$SESSION" -n 'Config' -c "$HOME/.config/"
+  tmux send-keys -t "$SESSION:Config" "nvim +NvimTreeToggle" Enter
+  tmux split-window -h -t "$SESSION:Config" -c "$HOME/.local/bin/custom/"
+
 fi
 
-# Attach Session, on the Main window
-tmux attach-session -t $SESSION:1
+# Attach to the 'Main' window
+tmux attach-session -t "$SESSION:Main"

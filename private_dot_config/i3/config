@@ -7,7 +7,7 @@
 ## FILE MANAGER
 bindsym $mod+F1 exec fsearch
 bindsym $mod+F2 exec alacritty -e lf 
-bindsym $mod+Tab exec rofi -show window
+bindsym $mod+Tab exec rofi -show window -sort -selected-row 1
 
 bindsym $mod+shift+F6 exec sudo shutdown now
 bindsym $mod+shift+F5 exec sudo systemctl suspend
