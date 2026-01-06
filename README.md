@@ -110,3 +110,23 @@ sudo swapon /swapfile
 # sudo echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
 sudo swapon --show
 ```
+
+## Config input device
+
+```sh
+ed@ed-pc:/etc/X11/xorg.conf.d$ cat 00-keyboard.conf 10-libinput.conf
+Section "InputClass"
+  Identifier "system-keyboard"
+  MatchIsKeyboard "true"
+  Option "XkbOptions" "caps:escape_shifted_capslock"
+EndSection
+
+Section "InputClass"
+        Identifier "Pointer"
+        MatchIsPointer "true"
+        Driver "libinput"
+        Option "LeftHanded" "true"
+        Option "Tapping" "true"
+        Option "NartualScrolling" "true"
+EndSection
+```

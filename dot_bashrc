@@ -123,12 +123,12 @@ PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 export PATH="$PATH:$HOME/.local/bin/:$HOME/.local/bin/custom/:/home/linuxbrew/.linuxbrew/bin/"
 
 # some more ls aliases
+alias pf='pstree -p |less '
 alias ff='fzf'
-alias la='ls -la --group-directories-first --color=always | less -R'
-alias l='ls --group-directories-first --color=always |less -R'
+alias la='ls -la --group-directories-first --color=always'
+alias l='ls --group-directories-first --color=always'
 alias vi='nvim'
 alias bashrc='vi ~/.bashrc'
-alias clip='xclip -sel clip'
 alias hisc='history 1000 |tac|fzf| sed "s/^[ ]*[0-9]*[ ]*//"|clip' #history copy
 alias apt='sudo apt '
 alias m='man'
@@ -242,7 +242,7 @@ pdf() {
   if [[ -z "$filename" ]]; then
     return 1
   fi
-  command nohup evince $filename >/dev/null 2>&1 &
+  command nohup firefox "$filename" >/dev/null 2>&1 &
 }
 
 # d <dir-name>
@@ -305,8 +305,6 @@ b() {
     return
   fi
 
-  # Read the file and create the menu list (just the basenames)
-  # Using awk to get the part before the '|'
   mapfile -t display_names < <(awk -F'|' '{print $1}' ~/.bookmarks)
 
   PS3="Jump to: "
@@ -329,8 +327,39 @@ b() {
 # similar to b command but with fzf
 #
 j() {
-  local choice=$(cat ~/.bookmarks | fzf --delimiter='\|' --with-nth=1 --reverse --height=40%)
+  local choice=$(tac ~/.bookmarks | cut -d'|' -f2 | fzf --prompt="Jump to: ")
   if [ -n "$choice" ]; then
     cd "$(echo "$choice" | cut -d'|' -f2-)" && ls --group-directories-first
   fi
+}
+
+clip() {
+  # We use a local alias or just call the command directly
+  local copy="xclip -sel clip"
+
+  if [[ $# -gt 0 ]]; then
+    # Case: Args exist. Cat the files and pipe to xclip.
+    cat "$@" | $copy
+  else
+    # Case: No args. xclip reads directly from the pipe (stdin).
+    $copy
+  fi
+}
+
+mdtopdf() {
+  mapfile -t files < <(ls *.md | fzf --multi)
+
+  if [ ${#files[@]} -eq 0 ]; then
+    echo "No files selected or no .md files found."
+    return 1
+  fi
+
+  for file in "${files[@]}"; do
+    local output="${file%.md}.pdf"
+    echo "Converting '$file' to '$output'..."
+    pandoc "$file" -o "$output"
+  done
+
+  echo "Conversion complete!"
+  ls *.pdf
 }
