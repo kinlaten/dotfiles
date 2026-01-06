@@ -122,7 +122,11 @@ PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 #Add more path here
 export PATH="$PATH:$HOME/.local/bin/:$HOME/.local/bin/custom/:/home/linuxbrew/.linuxbrew/bin/"
 
-# some more ls aliases
+# Keybinding
+bind -x '"\C-f": d'
+
+# some more my aliases
+alias i3sconfig='nvim ~/.config/i3status/config'
 alias pf='pstree -p |less '
 alias ff='fzf'
 alias la='ls -la --group-directories-first --color=always'

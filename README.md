@@ -44,16 +44,20 @@ Then use git to push to remote repo as usual.
 ## Install essential packages
 
 ```sh
-sudo apt install -y gh nemo curl wget git lsd brave-browser rofi nitrogen nicotine thunar flatpak pgcli
+# Packages from Apt
+sudo apt install -y gh curl wget git brave-browser rofi flatpak pgcli
 bash
 
-# Chezmoi
+# Chezmoi - dotfile manager
 cd ~/.local
 sh -c "$(curl -fsLS chezmoi.io/get)"
 
-#Homebrew
+# Homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 zsh
+
+# Some package from Homebrew
+brew install node yazi ffmpeg sevenzip jq poppler fzf resvg imagemagick jstkdng/programs/ueberzugpp lazygit tmux
 
 #Github CLI
 gh auth login
@@ -90,12 +94,6 @@ Install deb package from [opensuse](https://software.opensuse.org/download/packa
 ```sh
 cd ~/Downloads/ ; sudo apt install ./alber*.deb
 cp -r ~/Documents/dotfiles/albert ~/.config/
-```
-
-## Essentials from Homebrew
-
-```sh
-brew install node fd yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide resvg imagemagick font-symbols-only-nerd-font jstkdng/programs/ueberzugpp wtfutil lazygit tmux
 ```
 
 ## Set swap to 16GB

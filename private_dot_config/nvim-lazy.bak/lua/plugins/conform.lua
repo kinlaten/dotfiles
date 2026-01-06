@@ -41,6 +41,7 @@ return {
         html = { "prettier" },
         jsx = { "prettier" },
         typescriptreact = { "biome" },
+        python = { "black" },
         -- add/override others here, e.g.:
         -- javascript = { "biome" },
         -- typescript = { "biome" },
