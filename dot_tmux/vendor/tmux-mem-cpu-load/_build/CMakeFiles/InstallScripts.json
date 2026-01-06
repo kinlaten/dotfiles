@@ -1,7 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"/home/ed/.tmux/vendor/tmux-mem-cpu-load/_build/cmake_install.cmake"
-	],
-	"Parallel" : false
-}

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Autostart Script
+Exec=/home/ed/.local/bin/custom/autostart
+Hidden=false
+NoDisplay=true
+X-GNOME-Autostart-enabled=true
