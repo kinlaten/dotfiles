@@ -21,13 +21,15 @@ vim.opt.rtp:prepend(lazypath) -- add to front of run time path
 
 -- Color Sheme
 function ColorMyPencils(color)
-	color = color or "tokyonight-night"
+	color = color or "everforest"
 	vim.cmd.colorscheme(color)
 	--
-	--Transparency
-	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-	--vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" }) -- floating window
-	vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" }) -- non-current window
+	--Transparency: make sure terminal also transparent
+	-- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+	-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" }) -- floating window
+	-- vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" }) -- non-current window
+	-- vim.api.nvim_set_hl(0, "NvimTreeNormal", { bg = "none" })
+	-- vim.api.nvim_set_hl(0, "NvimTreeNormalNC", { bg = "none" })
 end
 
 -- Setup lazy.nvim
@@ -43,4 +45,4 @@ require("lazy").setup({ -- Read from run time path, import lazy dir (or its init
 })
 
 -- Setup funcs after plugins register
-ColorMyPencils("tokyonight") --use tokyonight
+ColorMyPencils() --use tokyonight

@@ -9,12 +9,10 @@ return {
 		icons_enabled = true,
 
 		globalstatus = false,
-		tabline = {},
-		sections = {
-			lualine_a = { "mode" },
-			lualine_b = { "branch", "diff", "diagnostics" },
-			lualine_c = {
+		tabline = {
+			lualine_a = {
 				{
+
 					"buffers",
 					file_status = true, -- Displays file status (readonly status, modified status)
 					newfile_status = true, -- Display new file status (new file means no write after created)
@@ -25,6 +23,12 @@ return {
 						newfile = "[New]", -- Text to show for newly created file before first write
 					},
 				},
+			},
+		},
+		sections = {
+			lualine_a = { "mode" },
+			lualine_b = { "branch", "diff", "diagnostics" },
+			lualine_c = {
 				{ "filename", path = 3 },
 			},
 			lualine_x = { "hostname", "filetype" },

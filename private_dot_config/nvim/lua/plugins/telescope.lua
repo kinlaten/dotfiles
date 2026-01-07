@@ -6,8 +6,8 @@ return {
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 	},
 	keys = {
-		{ "<leader>ff", "<cmd>Telescope find_files<cr>" }, -- Search file in cwd
-		{ "<leader>fg", "<cmd>Telescope live_grep<cr>" }, -- Grep text from all file in cwd
+		{ "<leader>f", "<cmd>Telescope find_files<cr>" }, -- Search file in cwd
+		{ "<leader>g", "<cmd>Telescope live_grep<cr>" }, -- Grep text from all file in cwd
 		{ "<leader>b", "<cmd>Telescope buffers<cr>" }, -- Search file in buffer
 	},
 	config = function()

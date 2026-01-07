@@ -1,4 +1,4 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
+#  a~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
@@ -122,8 +122,12 @@ PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 #Add more path here
 export PATH="$PATH:$HOME/.local/bin/:$HOME/.local/bin/custom/:/home/linuxbrew/.linuxbrew/bin/"
 
-# Keybinding
-bind -x '"\C-f": d'
+
+# KEY BINDINGS
+# ctrl-f to open file with nvim 
+bind -x '"\C-f": file=$(fzf 2>/dev/null); [ -n "$file" ] && vi "$file"'
+
+[ -f /usr/share/bash-completion/completions/fzf ] && source /usr/share/bash-completion/completions/fzf
 
 # some more my aliases
 alias i3sconfig='nvim ~/.config/i3status/config'
@@ -268,8 +272,8 @@ d() {
     return 0
   fi
 
-  builtin cd "$dirname"
-  command ls
+  builtin cd "$dirname" 
+  vi .
 }
 
 # killf (no args)
