@@ -1,5 +1,8 @@
 {
+  "blink.cmp": { "branch": "main", "commit": "b19413d214068f316c78978b08264ed1c41830ec" },
+  "conform.nvim": { "branch": "master", "commit": "8314f4c9e205e7f30b62147069729f9a1227d8bf" },
   "flash.nvim": { "branch": "main", "commit": "fcea7ff883235d9024dc41e638f164a450c14ca2" },
+  "friendly-snippets": { "branch": "main", "commit": "572f5660cf05f8cd8834e096d7b4c921ba18e175" },
   "gruvbox.nvim": { "branch": "main", "commit": "5e0a460d8e0f7f669c158dedd5f9ae2bcac31437" },
   "lazy.nvim": { "branch": "main", "commit": "306a05526ada86a7b30af95c5cc81ffba93fef97" },
   "nvim-lspconfig": { "branch": "master", "commit": "0b38bc74487e73489624d61396af7805af9cc75f" },
