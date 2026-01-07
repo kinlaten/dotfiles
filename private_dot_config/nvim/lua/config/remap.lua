@@ -43,3 +43,5 @@ vim.opt.ignorecase = true
 
 -- Enable 24bit color scheme support
 vim.opt.termguicolors = true
+
+vim.opt.cursorline = true
