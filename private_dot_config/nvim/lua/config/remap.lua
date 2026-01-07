@@ -51,3 +51,7 @@ vim.opt.ignorecase = true
 vim.opt.termguicolors = true
 
 vim.opt.cursorline = true
+
+-- Save history of modification
+vim.opt.undofile = true -- Persistent undo across sessions
+vim.opt.undodir = vim.fn.stdpath("data") .. "/undo" -- Store undo files
