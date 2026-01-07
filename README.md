@@ -57,7 +57,7 @@ sh -c "$(curl -fsLS chezmoi.io/get)"
 zsh
 
 # Some package from Homebrew
-brew install node yazi ffmpeg sevenzip jq poppler fzf resvg imagemagick jstkdng/programs/ueberzugpp lazygit tmux
+brew install node yazi ffmpeg sevenzip jq poppler fzf resvg imagemagick jstkdng/programs/ueberzugpp lazygit tmux clang-format clangd stylua lua-language-server biome tree-sitter-cli black fd ripgrep
 
 #Github CLI
 gh auth login

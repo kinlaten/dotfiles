@@ -10,11 +10,17 @@ vim.keymap.set("n", "<leader>l", vim.cmd.Lazy)
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Explore)
 
--- Move multiple line
+-- Navigate multiple line
 vim.keymap.set("n", "j", "jzz")
 vim.keymap.set("n", "k", "kzz")
 vim.keymap.set("n", "J", "5jzz")
 vim.keymap.set("n", "K", "5kzz")
+
+-- Navigate between
+vim.keymap.set("n", "<Tab>", ":bnext<cr>")
+
+-- Unset ; key
+vim.keymap.set("n", ";", "<Nop>", { noremap = true, silent = true })
 
 -- PREFERENCES
 -- Sync nvim register with clipboard
