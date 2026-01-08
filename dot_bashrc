@@ -273,7 +273,7 @@ d() {
   fi
 
   builtin cd "$dirname" 
-  vi .
+  #vi .
 }
 
 # killf (no args)

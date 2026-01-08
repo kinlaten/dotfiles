@@ -3,72 +3,45 @@
 #
 # Should you change your keyboard layout some time, delete
 # this file and re-run i3-config-wizard(1).
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-## FILE MANAGER
-bindsym $mod+F1 exec fsearch
-bindsym $mod+F2 exec alacritty -e lf 
-bindsym $mod+Tab exec rofi -show window -sort -selected-row 1
+## KEY BINDINGS
+# Leader key is Super
+set $mod Mod4
 
-bindsym $mod+shift+F6 exec sudo shutdown now
-bindsym $mod+shift+F5 exec sudo systemctl suspend
-bindsym $mod+shift+F7 exec sudo systemctl hibernate
+# Scratchpad, use terminal+tmux persistent everywhere 
+for_window [class="Alacritty" instance="__tmux_scratchpad"] floating enable, move to scratchpad
+bindsym $mod+shift+p move scratchpad
+bindsym $mod+p scratchpad show
 
-bindsym $mod+shift+p exec --no-startup-id /home/zen/.zen_scripts/i3monitor
-bindsym $mod+Return exec alacritty
+# start dmenu (a program launcher)
+#bindsym $mod+d exec --no-startup-id dmenu_run
 
-bindsym $mod+shift+x exec i3lock -i /home/zen/Pictures/wallpaper/mt.jpg
+# Rofi switch windows, can used to launch app by using \<name>
+bindsym $mod+Tab exec rofi -show window -sort -selected-row 1 -kb-accept-enter 
 
+# Setup multiple monitors
+bindsym $mod+shift+m exec --no-startup-id /home/zen/.zen_scripts/i3monitor
+
+# Launch terminal
+bindsym $mod+Return exec alacritty --class="__tmux_scratchpad" -e bash -c 'tmux attach || tmux new-session'
+
+# Lock window
+bindsym $mod+shift+x exec i3lock -b --image=/usr/share/backgrounds/Fuwafuwa_nanbatto_san_by_amaral-dark.png
+
+# Screen brightness
 bindsym XF86MonBrightnessDown exec sudo brightnessctl set 5%-
 bindsym XF86MonBrightnessUp exec sudo brightnessctl set +5%
 
-
-workspace_layout tabbed
-focus_follows_mouse no
-
-# Wallpaper
-exec_always --no-startup-id feh --bg-fill /home/ed/Pictures/wallpaper/bg10.jpg
-
-hide_edge_borders smart
-
-## Screenshots
+# Screenshots
 bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/$(date).png"
 bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date).png"
 bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date).png"
 
-## Clipboard Screenshots
+# Clipboard Screenshots
 bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
 bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
 bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
-
-# i3 config file (v4)
-#
-# Please see https://i3wm.org/docs/userguide.html for a complete reference!
-
-# Leader key is Super
-set $mod Mod4
-
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-font pango:0xProto Nerd Font 12 
-
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
-
-# Start XDG autostart .desktop files using dex. See also
-# https://wiki.archlinux.org/index.php/XDG_Autostart
-exec --no-startup-id dex --autostart --environment i3
-
-# The combination of xss-lock, nm-applet and pactl is a popular choice, so
-# they are included here as an example. Modify as you see fit.
-
-# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
-# screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork --image=/home/zen/Pictures/wallpaper/earth.png
-
-# NetworkManager is the most popular way to manage wireless networks on Linux,
-# and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -79,18 +52,6 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
-
-# move tiling windows via drag & drop by left-clicking into the title bar,
-# or left-clicking anywhere into the window while holding the floating modifier.
-tiling_drag modifier titlebar
-
-# kill focused window
-bindsym $mod+Shift+q kill
-
-# start dmenu (a program launcher)
-#bindsym $mod+d exec --no-startup-id dmenu_run
-# A more modern dmenu replacement is rofi:
-#bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 
 # change focus
 bindsym $mod+h focus left
@@ -142,19 +103,6 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-# Define names for default workspaces for which we configure key bindings later on.
-# We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "0"
-
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
 bindsym $mod+2 workspace number $ws2
@@ -166,6 +114,9 @@ bindsym $mod+7 workspace number $ws7
 bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws10
+
+# kill focused window
+bindsym $mod+Shift+q kill
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
@@ -184,7 +135,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit; loginctl terminate-user $USER'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -194,10 +145,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -213,14 +164,44 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+## UI
+# Window
+workspace_layout tabbed
+focus_follows_mouse no
+hide_edge_borders smart
+
+# Wallpaper
+exec_always --no-startup-id feh --bg-fill /home/ed/Pictures/wallpaper/bg10.jpg
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:0xProto Nerd Font 12 
+
+# Define names for default workspaces for which we configure key bindings before.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "0"
+
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
   status_command i3status
+  workspace_buttons yes
+workspace_min_width 40
+strip_workspace_name no
   # mode hide
   # hidden_state hide
   # modifier Mod4
-
+i3bar_command i3bar --transparency
   colors{
 
     #background      #a6da95
@@ -228,6 +209,10 @@ bar {
 
   }
 }
+
+# move tiling windows via drag & drop by left-clicking into the title bar,
+# or left-clicking anywhere into the window while holding the floating modifier.
+tiling_drag modifier titlebar
 
 # Gap
 gaps outer 5 
@@ -238,3 +223,20 @@ title_align center
 
 # Window
 default_border none
+
+## AUTOSTART
+# Start XDG autostart .desktop files using dex. See also
+# https://wiki.archlinux.org/index.php/XDG_Autostart
+exec --no-startup-id dex --autostart --environment i3
+
+# The combination of xss-lock, nm-applet and pactl is a popular choice, so
+# they are included here as an example. Modify as you see fit.
+# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
+# screen before suspend. Use loginctl lock-session to lock your screen.
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --image=/usr/share/backgrounds/Fuwafuwa_nanbatto_san_by_amaral-dark.png
+
+# NetworkManager is the most popular way to manage wireless networks on Linux,
+# and nm-applet is a desktop environment-independent system tray GUI for it.
+exec --no-startup-id nm-applet
+
+assign [class="^firefox_firefox$"] → number "2: pdf"
