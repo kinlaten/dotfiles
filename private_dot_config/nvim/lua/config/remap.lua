@@ -6,21 +6,28 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+-- Start adding here Clear highlighted pattern after escape
+vim.keymap.set({ "n", "v" }, "<Esc>", "<cmd>nohlsearch<cr><Esc>", { desc = "Clear search highlights" })
+
 vim.keymap.set("n", "<leader>l", vim.cmd.Lazy)
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Explore)
 
+-- Exit terminal mode by Esc
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
+
 -- Navigate multiple line
 vim.keymap.set("n", "j", "jzz")
 vim.keymap.set("n", "k", "kzz")
-vim.keymap.set("n", "J", "5jzz")
-vim.keymap.set("n", "K", "5kzz")
+-- vim.keymap.set("n", "J", "5jzz")
+-- vim.keymap.set("n", "K", "5kzz")
 
 -- Navigate between
-vim.keymap.set("n", "<Tab>", ":bnext<cr>")
+-- vim.keymap.set("n", "<C-n>", ":bnext<cr>")
+-- vim.keymap.set("n", "<C-p>", ":bprev<cr>")
 
 -- Unset ; key
-vim.keymap.set("n", ";", "<Nop>", { noremap = true, silent = true })
+--vim.keymap.set("n", ";", "<Nop>", { noremap = true, silent = true })
 
 -- PREFERENCES
 -- Sync nvim register with clipboard
@@ -54,4 +61,11 @@ vim.opt.cursorline = true
 
 -- Save history of modification
 vim.opt.undofile = true -- Persistent undo across sessions
-vim.opt.undodir = vim.fn.stdpath("data") .. "/undo" -- Store undo files
+vim.opt.undodir = vim.fn.stdpath("data") .. "/undo" -- Store mundo files
+vim.opt.autowrite = on
+
+vim.opt.wrapscan = false
+
+vim.opt.wildmode = "noselect:lastused,full"
+
+vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { desc = "Go to definition" })
