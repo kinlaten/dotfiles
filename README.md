@@ -45,7 +45,7 @@ Then use git to push to remote repo as usual.
 
 ```sh
 # Packages from Apt
-sudo apt install -y gh curl wget git brave-browser rofi flatpak pgcli
+sudo apt install -y gh curl wget git brave-browser rofi flatpak pgcli brightnessctl maim pulseaudio-utils
 bash
 
 # Chezmoi - dotfile manager
@@ -122,9 +122,10 @@ EndSection
 Section "InputClass"
         Identifier "Pointer"
         MatchIsPointer "true"
+        #MatchIsTouchpad "true" #for laptop
         Driver "libinput"
         Option "LeftHanded" "true"
         Option "Tapping" "true"
-        Option "NartualScrolling" "true"
+        Option "NaturalScrolling" "true"
 EndSection
 ```
