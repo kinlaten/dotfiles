@@ -26,7 +26,7 @@ return {
 			json = { "clang-format" },
 			cpp = { "clang-format" },
 			java = { "clang-format" },
-			cs = { "clang-format" },
+			csharp  = { "csharpier" },
 			typescript = { "clang-format" },
 			typescriptreact = { "biome" },
 			html = { "biome" },
