@@ -121,7 +121,7 @@ PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 #Add more path here
 export PATH="$PATH:$HOME/.local/bin/:$HOME/.local/bin/custom/:/home/linuxbrew/.linuxbrew/bin/"
-
+export BASH_ENV=~/.bashrc
 
 # KEY BINDINGS
 # ctrl-f to open file with nvim 
@@ -370,4 +370,22 @@ mdtopdf() {
 
   echo "Conversion complete!"
   ls *.pdf
+}
+
+#
+# Patch rename in vim
+# 
+vrename(){
+    local old=$(mktemp)
+    local new=$(mktemp)
+    
+    ls -1  --group-directories-first > "$old"
+    cp "$old" "$new"
+    nvim "$new"
+
+    paste "$old" "$new" | while IFS=$'\t' read -r src dest; do
+        [ "$src" != "$dest" ] && mv -iv "$src" "$dest" 
+    done
+
+    rm "$old" "$new"
 }
