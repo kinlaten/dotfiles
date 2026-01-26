@@ -2,14 +2,6 @@
 
 BRAVE_BOOKMARKS="$HOME/.config/BraveSoftware/Brave-Browser/Default/Bookmarks"
 
-# When rofi asks for entries to show (initial call), we don't list anything.
-# User will type directly in the rofi prompt.
-if [ -z "$1" ]; then
-  exit 0
-fi
-
-input="$1"
-
 # --- Helper: open URL or do Google search ---
 open_search() {
   query="$1"
@@ -27,7 +19,26 @@ open_search() {
   disown
 }
 
-# --- Prefix dispatch ---
+# Extract URL from "name  🌐  url"
+extract_url() {
+  line="$1"
+  # take part after last '🌐'
+  url="${line##*🌐}"
+  # trim leading spaces
+  url="${url#"${url%%[![:space:]]*}"}"
+  # trim trailing spaces
+  url="${url%"${url##*[![:space:]]}"}"
+  printf '%s\n' "$url"
+}
+
+input="$1"
+
+# When rofi asks for entries initially, we don't list anything.
+# User will type directly in the rofi prompt.
+if [ -z "$input" ]; then
+  exit 0
+fi
+
 case "$input" in
   b\ * )
     # Bookmark search mode: text after "b "
@@ -55,12 +66,23 @@ case "$input" in
     exit 0
     ;;
 
+  *"🌐"* )
+    # User selected a bookmark line from the list: extract URL and open it.
+    url="$(extract_url "$input")"
+    if [ -n "$url" ]; then
+      brave-browser "$url" >/dev/null 2>&1 &
+      disown
+    fi
+    exit 0
+    ;;
+
   g\ * )
     # Explicit Google search: text after "g "
     query="${input#g }"
     [ -n "$query" ] && open_search "$query"
     exit 0
     ;;
+
   * )
     # Default: treat as web search.
     open_search "$input"
