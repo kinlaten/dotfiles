@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+
+BRAVE_BOOKMARKS="$HOME/.config/BraveSoftware/Brave-Browser/Default/Bookmarks"
+
+# When rofi asks for entries to show (initial call), we don't list anything.
+# User will type directly in the rofi prompt.
+if [ -z "$1" ]; then
+  exit 0
+fi
+
+input="$1"
+
+# --- Helper: open URL or do Google search ---
+open_search() {
+  query="$1"
+
+  # If it's a URL, open directly.
+  if printf '%s\n' "$query" | grep -qiE '^(https?://|www\.)'; then
+    brave-browser "$query" >/dev/null 2>&1 &
+    disown
+    return
+  fi
+
+  # Otherwise, Google search.
+  encoded_query=$(printf '%s' "$query" | jq -s -R -r @uri)
+  brave-browser "https://www.google.com/search?q=${encoded_query}" >/dev/null 2>&1 &
+  disown
+}
+
+# --- Prefix dispatch ---
+case "$input" in
+  b\ * )
+    # Bookmark search mode: text after "b "
+    term="${input#b }"
+
+    # If no term, open full bookmark list to choose from.
+    if [ -z "$term" ]; then
+      jq -cr '
+        .roots[]? |
+        .. | objects? |
+        select(.type? == "url") |
+        "\(.name)  🌐  \(.url)"
+      ' "$BRAVE_BOOKMARKS" | sort -u
+      exit 0
+    fi
+
+    # Filter bookmarks by term and let rofi present the list.
+    jq -cr --arg term "$term" '
+      .roots[]? |
+      .. | objects? |
+      select(.type? == "url") |
+      select(.name | test($term; "i")) |
+      "\(.name)  🌐  \(.url)"
+    ' "$BRAVE_BOOKMARKS" | sort -u
+    exit 0
+    ;;
+
+  g\ * )
+    # Explicit Google search: text after "g "
+    query="${input#g }"
+    [ -n "$query" ] && open_search "$query"
+    exit 0
+    ;;
+  * )
+    # Default: treat as web search.
+    open_search "$input"
+    exit 0
+    ;;
+esac
+
