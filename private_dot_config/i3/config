@@ -10,21 +10,26 @@
 set $mod Mod4
 
 # Scratchpad, use terminal+tmux persistent everywhere 
-for_window [class="Alacritty" instance="__tmux_scratchpad"] floating enable, move to scratchpad
+#for_window [class="Alacritty" instance="__tmux_scratchpad"] floating enable, move to scratchpad
 bindsym $mod+shift+p move scratchpad
 bindsym $mod+p scratchpad show
 
 # start dmenu (a program launcher)
 #bindsym $mod+d exec --no-startup-id dmenu_run
 
+# Vicinea General Launcher (alternative: Albert, Rofi, Dmenu)
+#bindsym Mod1+space exec --no-startup-id sh -c 'vicinae toggle'
+
 # Rofi switch windows, can used to launch app by using \<name>
-bindsym $mod+Tab exec rofi -show window -sort -selected-row 1 -kb-accept-enter 
+#bindsym --release Mod1+space exec rofi -show window -sort -selected-row 1 -kb-accept-enter
+#bindsym Mod1+space exec --no-startup-id rofi -show
 
 # Setup multiple monitors
-bindsym $mod+shift+m exec --no-startup-id /home/zen/.zen_scripts/i3monitor
+#bindsym $mod+shift+m exec --no-startup-id /home/zen/.zen_scripts/i3monitor
 
 # Launch terminal
-bindsym $mod+Return exec alacritty --class="__tmux_scratchpad" -e bash -c 'tmux attach || tmux new-session'
+bindsym $mod+Return exec alacritty -o font.size=10.0 --class="__tmux_scratchpad" -e bash -ic 'tmux attach || tmux new-session'
+bindsym $mod+shift+t exec i3-sensible-terminal
 
 # Lock window
 bindsym $mod+shift+x exec i3lock -b --image=/usr/share/backgrounds/Fuwafuwa_nanbatto_san_by_amaral-dark.png
@@ -95,7 +100,7 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+#bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -233,10 +238,14 @@ exec --no-startup-id dex --autostart --environment i3
 # they are included here as an example. Modify as you see fit.
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --image=/usr/share/backgrounds/Fuwafuwa_nanbatto_san_by_amaral-dark.png
+#exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --image=/usr/share/backgrounds/Fuwafuwa_nanbatto_san_by_amaral-dark.png
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
 assign [class="^firefox_firefox$"] → number "2: pdf"
+
+exec_always autotiling -w 1 3 5 7 9 -l 2
+
+exec_always --no-startup-id ~/.local/bin/custom/auto_scratchpad.py True,,,,,
