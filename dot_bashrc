@@ -14,6 +14,8 @@ HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
 shopt -s histappend
+PROMPT_COMMAND="__zoxide_hook;_direnv_hook;history -a;"
+export PROMPT_COMMAND="_log_pwd; $PROMPT_COMMAND"
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
@@ -117,24 +119,35 @@ complete -C /home/linuxbrew/.linuxbrew/Cellar/terraform/1.13.5/bin/terraform ter
 eval "$(fzf --bash)"
 
 #Default path
-PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 #Add more path here
-export PATH="$PATH:$HOME/.local/bin/:$HOME/.local/bin/custom/:/home/linuxbrew/.linuxbrew/bin/"
+export PATH="$PATH:$HOME/.local/bin/:$HOME/.local/bin/custom/:/home/linuxbrew/.linuxbrew/bin/:/home/ed/.dotnet/tools:/home/ed/.cargo/bin/"
 export BASH_ENV=~/.bashrc
 
+## ENVIRONMENT
+export BRAVE_BOOKMARKS="$HOME/.config/BraveSoftware/Brave-Browser/Default/Bookmarks"
+export EDITOR="nvim"
+export VISUAL="nvim"
+export PATH=/home/ed/.opencode/bin:$PATH
+
+eval "$(direnv hook bash)"
+eval "$(zoxide init bash)"
 # KEY BINDINGS
 # ctrl-f to open file with nvim 
 bind -x '"\C-f": file=$(fzf 2>/dev/null); [ -n "$file" ] && vi "$file"'
 
 [ -f /usr/share/bash-completion/completions/fzf ] && source /usr/share/bash-completion/completions/fzf
 
-# some more my aliases
+# ADD ALIAS HERE
+alias se="sudoedit"
+alias bm="bookmark"
+alias ssh="ssh -v"
 alias i3sconfig='nvim ~/.config/i3status/config'
 alias pf='pstree -p |less '
 alias ff='fzf'
-alias la='ls -la --group-directories-first --color=always'
-alias l='ls --group-directories-first --color=always'
+alias la='ls -la --group-directories-first --color=always -tr'
+alias l='ls --group-directories-first --color=always -tr'
 alias vi='nvim'
 alias bashrc='vi ~/.bashrc'
 alias hisc='history 1000 |tac|fzf| sed "s/^[ ]*[0-9]*[ ]*//"|clip' #history copy
@@ -151,10 +164,12 @@ alias free="free -h"
 alias find='sudo find 2>/dev/null'
 alias path='echo -e ${PATH//:/\\n}'
 alias dow='cd ~/Downloads/; l'
+alias cd='z'
 alias gs='git status'
 alias popd='popd > /dev/null; dirs -v'
 alias df='df -h'
 alias mark='echo "$(basename "$PWD")|$PWD" >> ~/.bookmarks; sort -u -o ~/.bookmarks ~/.bookmarks' #add current dir to bookmarks
+alias passgen="openssl rand -hex 32 | tee /dev/tty | xclip -selection clipboard"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -305,7 +320,8 @@ y() {
 
 # b (no args)
 #
-# jump to bookmarks
+# jump to bookmarks which is marked by `mark` command
+#
 #
 b() {
   if [ ! -s ~/.bookmarks ]; then
@@ -375,7 +391,7 @@ mdtopdf() {
 #
 # Patch rename in vim
 # 
-vrename(){
+virn(){
     local old=$(mktemp)
     local new=$(mktemp)
     
@@ -389,3 +405,29 @@ vrename(){
 
     rm "$old" "$new"
 }
+
+# log directory history (unique consecutive entries)
+_log_pwd() {
+  local last current
+  current=$(pwd)
+
+  # read last line if file exists and is non-empty
+  if [ -s "${HOME}/.bash_dh" ]; then
+    last=$(tail -n 1 "${HOME}/.bash_dh")
+  fi
+
+  # only append if different from previous
+  if [ "$current" != "$last" ]; then
+    printf '%s\n' "$current" >> "${HOME}/.bash_dh"
+  fi
+}
+
+
+dh() {
+  local dir
+  [ -f "${HOME}/.bash_dh" ] || { echo "No dir history yet."; return 1; }
+
+  dir=$(tac "${HOME}/.bash_dh" | awk '!seen[$0]++' | fzf) || return 1
+  [ -d "$dir" ] && cd "$dir"
+}
+
