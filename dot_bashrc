@@ -14,8 +14,8 @@ HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
 shopt -s histappend
-PROMPT_COMMAND="__zoxide_hook;_direnv_hook;history -a;"
-export PROMPT_COMMAND="_log_pwd; $PROMPT_COMMAND"
+PROMPT_COMMAND="_direnv_hook;history -a;"
+export PROMPT_COMMAND="_log_pwd; $PROMPT_COMMAND" # add __zoxide_hook; if needed
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
@@ -132,7 +132,8 @@ export VISUAL="nvim"
 export PATH=/home/ed/.opencode/bin:$PATH
 
 eval "$(direnv hook bash)"
-eval "$(zoxide init bash)"
+#eval "$(zoxide init bash)"
+
 # KEY BINDINGS
 # ctrl-f to open file with nvim 
 bind -x '"\C-f": file=$(fzf 2>/dev/null); [ -n "$file" ] && vi "$file"'
@@ -140,6 +141,8 @@ bind -x '"\C-f": file=$(fzf 2>/dev/null); [ -n "$file" ] && vi "$file"'
 [ -f /usr/share/bash-completion/completions/fzf ] && source /usr/share/bash-completion/completions/fzf
 
 # ADD ALIAS HERE
+alias kbdp="kubectl describe pods"
+alias kb="kubectl"
 alias se="sudoedit"
 alias bm="bookmark"
 alias ssh="ssh -v"
@@ -164,7 +167,6 @@ alias free="free -h"
 alias find='sudo find 2>/dev/null'
 alias path='echo -e ${PATH//:/\\n}'
 alias dow='cd ~/Downloads/; l'
-alias cd='z'
 alias gs='git status'
 alias popd='popd > /dev/null; dirs -v'
 alias df='df -h'
@@ -176,6 +178,15 @@ alias passgen="openssl rand -hex 32 | tee /dev/tty | xclip -selection clipboard"
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 #====== Some function
+
+man() {
+    if [ $# -eq 0 ]; then
+        command man
+        return
+    fi
+
+    nvim -c "Man $1" +only
+}
 
 pushd() {
   builtin pushd "$@" >/dev/null
@@ -431,3 +442,19 @@ dh() {
   [ -d "$dir" ] && cd "$dir"
 }
 
+
+# pnpm
+export PNPM_HOME="/home/ed/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+
+alias ts="sudo tailscale status"
+export KUBECONFIG=/etc/rancher/k3s/k3s.yaml

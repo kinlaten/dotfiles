@@ -1,0 +1,21 @@
+Host uow
+HostName capa.its.uow.edu.au
+User aqp705
+
+Host hp-home
+HostName 192.168.20.97
+User ed
+
+Host thinkpad-home
+HostName 192.168.20.98
+User ed
+
+Host hetzner-vps
+HostName 2a01:4f9:c013:de7a::1
+User ed
+
+Host hetzner-box
+HostName u538191.your-storagebox.de
+User u538191
+Port 23
+

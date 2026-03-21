@@ -21,7 +21,7 @@ vim.opt.rtp:prepend(lazypath) -- add to front of run time path
 
 -- Color Sheme
 function ColorMyPencils(color)
-	color = color or "everforest"
+	color = color or "tokyonight-night"
 	vim.cmd.colorscheme(color)
 	--
 	--Transparency: make sure terminal also transparent

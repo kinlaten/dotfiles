@@ -30,6 +30,8 @@ return {
 				"markdown_inline",
 				"csv",
 				"json",
+				"helm",
+				"yaml",
 			},
 			auto_install = true,
 			highlight = { enable = true },

@@ -22,5 +22,9 @@ return {
 		vim.lsp.enable("biome"), --{ "astro", "css", "graphql", "html", "javascript", "javascriptreact", "json", "jsonc", "svelte", "typescript", "typescript.tsx", "typescriptreact", "vue" }
 
 		vim.lsp.enable("marksman"), -- markdown
+
+		vim.lsp.enable("helm-ls"), -- helm
+
+		vim.lsp.enable("terraform-ls"), -- tf
 	},
 }

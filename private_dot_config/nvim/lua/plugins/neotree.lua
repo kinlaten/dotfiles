@@ -11,7 +11,10 @@ return {
 			sort = { sorter = "case_sensitive" },
 			view = { centralize_selection = true },
 			renderer = { group_empty = true },
-			filters = { dotfiles = true },
+			filters = { dotfiles = false },
+			git = {
+				ignore = false, -- do NOT hide gitignored files [web:4]
+			},
 		})
 
 		-- KEYMAP: <leader>e toggles nvim-tree
