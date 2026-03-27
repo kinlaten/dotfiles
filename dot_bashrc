@@ -122,7 +122,7 @@ eval "$(fzf --bash)"
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 #Add more path here
-export PATH="$PATH:$HOME/.local/bin/:$HOME/.local/bin/custom/:/home/linuxbrew/.linuxbrew/bin/:/home/ed/.dotnet/tools:/home/ed/.cargo/bin/"
+export PATH="$PATH:$HOME/.local/bin/:$HOME/.local/bin/custom/:/home/linuxbrew/.linuxbrew/bin/:/home/ed/.dotnet/tools:/home/ed/.cargo/bin/:/nix/var/nix/profiles/default/bin"
 export BASH_ENV=~/.bashrc
 
 ## ENVIRONMENT
@@ -139,6 +139,24 @@ eval "$(direnv hook bash)"
 bind -x '"\C-f": file=$(fzf 2>/dev/null); [ -n "$file" ] && vi "$file"'
 
 [ -f /usr/share/bash-completion/completions/fzf ] && source /usr/share/bash-completion/completions/fzf
+
+# pnpm
+export PNPM_HOME="/home/ed/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+
+alias ts="sudo tailscale status"
+export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 
 # ADD ALIAS HERE
 alias kbdp="kubectl describe pods"
@@ -224,7 +242,7 @@ sysf() {
 # interactively search manpages
 #
 mf() {
-  man -k . | fzf | awk '{print $2 " " $1}' | tr -d '()' | xargs man
+  command man -k . | fzf | awk '{print $2 " " $1}' | tr -d '()' | xargs man
 }
 
 # hisfc (no args)
@@ -434,6 +452,7 @@ _log_pwd() {
 }
 
 
+# Directory history jump
 dh() {
   local dir
   [ -f "${HOME}/.bash_dh" ] || { echo "No dir history yet."; return 1; }
@@ -443,18 +462,116 @@ dh() {
 }
 
 
-# pnpm
-export PNPM_HOME="/home/ed/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+gen-desktop() {
+    local bin="" name="" icon="" desktop_name=""
+    local bin_only=false
+
+    # Help text
+    if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+        echo "Usage:"
+        echo "  gen-desktop                           # interactive"
+        echo "  gen-desktop -b <binary> [name] [icon] # batch"
+        echo "  gen-desktop -B <binary>               # batch, attempt auto‑name/icon"
+        return 0
+    fi
+
+    # Decide mode
+    if [[ "$1" == "-b" ]]; then
+        # batch: -b <binary> [name] [icon]
+        if [[ -z "$2" ]]; then
+            echo "Error: missing binary path with -b." >&2
+            return 1
+        fi
+        bin="$2"
+        name="${3:-${bin##*/}}"   # default to basename
+        icon="${4:-}"
+
+        if [[ ! -x "$bin" ]]; then
+            echo "Error: binary not found or not executable: $bin" >&2
+            return 1
+        fi
+
+    elif [[ "$1" == "-B" ]]; then
+        # batch auto: -B <binary>
+        if [[ -z "$2" ]]; then
+            echo "Error: missing binary path with -B." >&2
+            return 1
+        fi
+        bin="$2"
+        name="${bin##*/}"
+        desktop_name="$name"
+
+        if [[ -x "$bin" ]]; then
+            icon=""
+            while IFS= read -r -d '' f; do
+                if [[ "$f" =~ \.(png|svg|jpg|jpeg)$ ]]; then
+                    icon="$f"
+                    break
+                fi
+            done < <(find "$HOME/.local/share/icons" "$HOME/.icons" /usr/share/icons -type f -printf '%p\0' 2>/dev/null)
+        else
+            echo "Error: binary not found or not executable: $bin" >&2
+            return 1
+        fi
+
+    else
+        # interactive
+        while [[ -z "$bin" ]]; do
+            read -rp "Binary path (executable): " bin
+            if [[ -z "$bin" ]]; then
+                echo "Binary path is required; aborting." >&2
+                return 1
+            elif [[ ! -x "$bin" ]]; then
+                echo "Binary not found or not executable: $bin"
+                bin=""
+            fi
+        done
+        read -rp "Application display name [${bin##*/}]: " name
+        [[ -z "$name" ]] && name="${bin##*/}"
+        read -rp "Icon path (optional): " icon
+    fi
+
+    # Sanitize desktop name
+    desktop_name="$(printf '%s' "$name" | sed -E 's/[^a-zA-Z0-9._-]+/_/g' | sed -E 's/^_+|_+$//')"
+
+    # Ensure desktop dir exists
+    local desktop_dir="$HOME/.local/share/applications"
+    [[ -d "$desktop_dir" ]] || mkdir -p "$desktop_dir"
+
+    # Default icon guess if not given
+    if [[ -z "$icon" ]]; then
+        icon="$bin.desktop.icon"
+    fi
+
+    # Construct .desktop content
+    cat > "$desktop_dir/${desktop_name}.desktop" << EOF
+[Desktop Entry]
+Type=Application
+Name=$name
+Exec=$bin
+Comment=Launched from gen-desktop
+Icon=$icon
+Terminal=false
+Categories=Utility;
+EOF
+    chmod +x "$desktop_dir/${desktop_name}.desktop"
+
+    echo "Desktop file created:"
+    echo "  $desktop_dir/${desktop_name}.desktop"
+    echo "You may need to run:  gtk‑update‑icon‑cache ~/.local/share/icons  (if you added icons)"
+}
 
 
-alias ts="sudo tailscale status"
-export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+# a() {
+#     local selected
+#     selected=$( {
+#         # System applications
+#         ls /usr/share/applications/ 2>/dev/null | grep -E '\.desktop$';
+#
+#         # User-local applications
+#         ls ~/.local/share/applications/ 2>/dev/null | grep -E '\.desktop$';
+#     } | sort -u | fzf --preview 'grep -E "(^Name=|Exec=|Comment=)" {} 2>/dev/null | sed "s/^/  /" || echo "No preview"' --preview-window right:50% )
+#
+#     [ -n "$selected" ] && xdg-open "$selected"
+# }
