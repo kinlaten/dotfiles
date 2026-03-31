@@ -575,3 +575,40 @@ EOF
 #
 #     [ -n "$selected" ] && xdg-open "$selected"
 # }
+
+
+fcp () {
+    local src dst dst_dir dst_file new_name
+
+    # 1. Select source
+    src=$(fzf --walker file \
+              --walker-root "$HOME" \
+              --walker-skip .git,node_modules,target \
+              --prompt="Select file: " \
+              --preview 'bat --style=numbers --color=always {} || cat {}')
+
+    [ -z "$src" ] && return
+
+    # 2. Select destination directory ONLY
+    dst=$(fzf --walker dir \
+              --walker-root "$HOME" \
+              --walker-skip .git,node_modules,target \
+              --prompt="Select destination dir: ")
+
+    [ -z "$dst" ] && return
+    dst="${dst/#\~/$HOME}"
+
+    # ensure directory
+    mkdir -p -- "$dst"
+
+    # 3. Ask for new filename
+    read -rp "New filename (leave empty to keep original): " new_name
+
+    # fallback to original name if empty
+    if [ -z "$new_name" ]; then
+        new_name=$(basename -- "$src")
+    fi
+
+    # 4. copy
+    cp -rv -- "$src" "$dst/$new_name"
+}

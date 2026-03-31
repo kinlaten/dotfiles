@@ -1,0 +1,21 @@
+{
+  "store": {
+    "chrome-devtools-mcp": {
+      "hash": "f2c961a61dea6cf7c622a840bd5baac6dafc11bb9e2ea1b051aa829273de768e",
+      "signature": "3056e2d750f6b3732606a0db8b20191f23625e8f09d82833bd70143f8ad0751e"
+    },
+    "context7": {
+      "hash": "bb0af7d1a44306dbe9c70d54676d9e79ee3e41100512b969730a8ef2e11767d4",
+      "signature": "8ead1d8b2bce9cebc9a7b78ff5b048e51970362187c830d90badaec00691008a"
+    },
+    "superpowers": {
+      "hash": "c7c40e7af83e11b133638d3fdc72c03b8ecac2d5c4a9129d8069e6016986fa5b",
+      "signature": "0ad2a76863f88a165409516677fd22bdabdf0ff5da2a9549de598aadd986691e"
+    },
+    "exa-mcp-server": {
+      "hash": "543730eadbc3cd1dc7fc2a8e5ca2369b67ed21b2323f8dd16e6899c8b07767c5",
+      "signature": "174405cec9622463e6a4fbcf1c5c7098e18008cdddd9c509ed27e113ca0e0d7d"
+    }
+  },
+  "signature": "b32d0da2a5db5527d0be7a33f3e1de075639c3080a15c7861d6f2e9e5b05352f"
+}
