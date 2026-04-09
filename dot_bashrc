@@ -122,7 +122,7 @@ eval "$(fzf --bash)"
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 #Add more path here
-export PATH="$PATH:$HOME/.local/bin/:$HOME/.local/bin/custom/:/home/linuxbrew/.linuxbrew/bin/:/home/ed/.dotnet/tools:/home/ed/.cargo/bin/:/nix/var/nix/profiles/default/bin"
+export PATH="$PATH:$HOME/.local/bin/:$HOME/.local/bin/custom/:/home/linuxbrew/.linuxbrew/bin/:/home/ed/.dotnet/tools:/home/ed/.cargo/bin/:/nix/var/nix/profiles/default/bin:${KREW_ROOT:-$HOME/.krew}/bin"
 export BASH_ENV=~/.bashrc
 
 ## ENVIRONMENT
@@ -159,11 +159,12 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 
 # ADD ALIAS HERE
+
 alias kbdp="kubectl describe pods"
 alias kb="kubectl"
 alias se="sudoedit"
 alias bm="bookmark"
-alias ssh="ssh -v"
+#alias ssh="ssh -v"
 alias i3sconfig='nvim ~/.config/i3status/config'
 alias pf='pstree -p |less '
 alias ff='fzf'
@@ -190,6 +191,7 @@ alias popd='popd > /dev/null; dirs -v'
 alias df='df -h'
 alias mark='echo "$(basename "$PWD")|$PWD" >> ~/.bookmarks; sort -u -o ~/.bookmarks ~/.bookmarks' #add current dir to bookmarks
 alias passgen="openssl rand -hex 32 | tee /dev/tty | xclip -selection clipboard"
+alias cwd='pwd | xargs printf %s | tee /dev/tty | xclip -sel clip'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -352,28 +354,28 @@ y() {
 # jump to bookmarks which is marked by `mark` command
 #
 #
-b() {
-  if [ ! -s ~/.bookmarks ]; then
-    echo "No bookmarks yet! Run 'mark' in a folder first."
-    return
-  fi
-
-  mapfile -t display_names < <(awk -F'|' '{print $1}' ~/.bookmarks)
-
-  PS3="Jump to: "
-  select choice in "Quit" "${display_names[@]}"; do
-    if [ "$choice" == "Quit" ]; then
-      break
-    elif [ -n "$choice" ]; then
-      # Find the full path associated with the chosen name
-      target_path=$(grep "^$choice|" ~/.bookmarks | cut -d'|' -f2-)
-      cd "$target_path" && ls --group-directories-first
-      break
-    else
-      echo "Invalid selection."
-    fi
-  done
-}
+# b() {
+#   if [ ! -s ~/.bookmarks ]; then
+#     echo "No bookmarks yet! Run 'mark' in a folder first."
+#     return
+#   fi
+#
+#   mapfile -t display_names < <(awk -F'|' '{print $1}' ~/.bookmarks)
+#
+#   PS3="Jump to: "
+#   select choice in "Quit" "${display_names[@]}"; do
+#     if [ "$choice" == "Quit" ]; then
+#       break
+#     elif [ -n "$choice" ]; then
+#       # Find the full path associated with the chosen name
+#       target_path=$(grep "^$choice|" ~/.bookmarks | cut -d'|' -f2-)
+#       cd "$target_path" && ls --group-directories-first
+#       break
+#     else
+#       echo "Invalid selection."
+#     fi
+#   done
+# }
 
 # j (no args)
 #
@@ -611,4 +613,39 @@ fcp () {
 
     # 4. copy
     cp -rv -- "$src" "$dst/$new_name"
+}
+
+export KUBECONFIG=~/.ssh/kubeconfig
+
+[ -f ~/.kubectl_aliases ] && source \
+   <(cat ~/.kubectl_aliases | sed -r 's/(kubectl.*) --watch/watch \1/g')
+function kubectl() { echo "+ kubectl $@" >&2; command kubectl "$@"; }
+
+
+f(){
+    firefox $@
+}
+
+b () 
+{ 
+    local file="$HOME/bookmarks.json";
+    [ ! -f "$file" ] && echo "No bookmarks file" && return 1;
+    local sel url;
+    sel=$(jq -r '
+        def walk(path):
+          if type == "object" and has("url") then
+            [ (path | join("/")), .title, .url ] | @tsv
+          elif type == "object" then
+            to_entries[] | (.value | walk(path + [.key]))
+          elif type == "array" then
+            .[] | walk(path)
+          else
+            empty
+          end;
+        walk([])
+    ' "$file" | fzf --delimiter=$'\t' --with-nth=1,2,3);
+
+    [ -z "$sel" ] && return;
+    url=$(printf "%s" "$sel" | cut -f3);
+    [ -n "$url" ] && firefox -new-tab "$url" > /dev/null 2>&1 &
 }

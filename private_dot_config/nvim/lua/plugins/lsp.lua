@@ -26,5 +26,6 @@ return {
 		vim.lsp.enable("helm-ls"), -- helm
 
 		vim.lsp.enable("terraform-ls"), -- tf
+		vim.lsp.enable("lemminx"), -- xml
 	},
 }

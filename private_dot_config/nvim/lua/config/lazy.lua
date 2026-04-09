@@ -41,7 +41,7 @@ require("lazy").setup({ -- Read from run time path, import lazy dir (or its init
 	-- Configure any other settings here. See the documentation for more details.
 	--
 	-- automatically check for plugin updates
-	checker = { enabled = true },
+	checker = { enabled = true, notify = false },
 })
 
 -- Setup funcs after plugins register

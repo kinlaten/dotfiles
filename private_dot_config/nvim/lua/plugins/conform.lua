@@ -27,7 +27,7 @@ return {
 			cpp = { "clang-format" },
 			java = { "clang-format" },
 			csharp = { "csharpier" },
-			xml = { "csharpier" },
+			--xml = { "" }, -- never use xmlformatter
 			csproj = { "csharpier" },
 			typescript = { "clang-format" },
 			typescriptreact = { "biome" },
