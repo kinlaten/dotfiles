@@ -118,23 +118,28 @@ complete -C /home/linuxbrew/.linuxbrew/Cellar/terraform/1.13.5/bin/terraform ter
 #=================== CUSTOM
 eval "$(fzf --bash)"
 
-#Default path
+## PATH
+# System path
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
-#Add more path here
-export PATH="$PATH:$HOME/.local/bin/:$HOME/.local/bin/custom/:/home/linuxbrew/.linuxbrew/bin/:/home/ed/.dotnet/tools:/home/ed/.cargo/bin/:/nix/var/nix/profiles/default/bin:${KREW_ROOT:-$HOME/.krew}/bin"
-export BASH_ENV=~/.bashrc
+# User path
+#export PATH="$PATH:$HOME/.local/bin/:$HOME/.local/bin/custom/:/home/linuxbrew/.linuxbrew/bin/:/home/ed/.dotnet/tools:/home/ed/.cargo/bin/:/nix/var/nix/profiles/default/bin:${KREW_ROOT:-$HOME/.krew}/bin"
+export PATH="$HOME/.local/bin:$HOME/.local/bin/custom:/home/ed/.cargo/bin:/nix/var/nix/profiles/default/bin:$PATH"
 
-## ENVIRONMENT
+# Home brew path
+export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin"
+
+## ENVIRONMENTs
 export BRAVE_BOOKMARKS="$HOME/.config/BraveSoftware/Brave-Browser/Default/Bookmarks"
 export EDITOR="nvim"
 export VISUAL="nvim"
-export PATH=/home/ed/.opencode/bin:$PATH
+#export PATH=/home/ed/.opencode/bin:$PATH
+export BASH_ENV=~/.bashrc
 
 eval "$(direnv hook bash)"
 #eval "$(zoxide init bash)"
 
-# KEY BINDINGS
+## KEY BINDINGS
 # ctrl-f to open file with nvim 
 bind -x '"\C-f": file=$(fzf 2>/dev/null); [ -n "$file" ] && vi "$file"'
 
@@ -153,13 +158,14 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 
-alias ts="sudo tailscale status"
 export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+#eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 
 # ADD ALIAS HERE
 
+alias ts="sudo tailscale status"
+alias im="gpicview"
 alias kbdp="kubectl describe pods"
 alias kb="kubectl"
 alias se="sudoedit"
@@ -648,4 +654,17 @@ b ()
     [ -z "$sel" ] && return;
     url=$(printf "%s" "$sel" | cut -f3);
     [ -n "$url" ] && firefox -new-tab "$url" > /dev/null 2>&1 &
+}
+
+runadr() {
+  set -e
+
+  ./gradlew installDebug
+
+  local apk="app/build/outputs/apk/debug/app-debug.apk"
+  local pkg
+
+  pkg=$(aapt2 dump badging "$apk" | awk -F"'" '/package: name=/{print $2; exit}')
+
+  adb shell monkey -p "$pkg" -c android.intent.category.LAUNCHER 1
 }
