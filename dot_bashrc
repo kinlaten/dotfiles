@@ -133,6 +133,7 @@ export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbi
 export BRAVE_BOOKMARKS="$HOME/.config/BraveSoftware/Brave-Browser/Default/Bookmarks"
 export EDITOR="nvim"
 export VISUAL="nvim"
+set -o vi
 #export PATH=/home/ed/.opencode/bin:$PATH
 export BASH_ENV=~/.bashrc
 
@@ -158,12 +159,16 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 
-export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 #eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+#export KUBECONFIG=~/.kube/keb-kubeconfig.yaml
+export KUBECONFIG=~/.kube/zenkin-kubeconfig.yaml
 
 
 # ADD ALIAS HERE
 
+alias sshconfig="nvim ~/.ssh/config"
+alias sd="shutdown -h now"
 alias ts="sudo tailscale status"
 alias im="gpicview"
 alias kbdp="kubectl describe pods"
@@ -621,7 +626,6 @@ fcp () {
     cp -rv -- "$src" "$dst/$new_name"
 }
 
-export KUBECONFIG=~/.ssh/kubeconfig
 
 [ -f ~/.kubectl_aliases ] && source \
    <(cat ~/.kubectl_aliases | sed -r 's/(kubectl.*) --watch/watch \1/g')
@@ -667,4 +671,22 @@ runadr() {
   pkg=$(aapt2 dump badging "$apk" | awk -F"'" '/package: name=/{print $2; exit}')
 
   adb shell monkey -p "$pkg" -c android.intent.category.LAUNCHER 1
+}
+
+# Function to switch KUBECONFIG using fzf
+sk() {
+    local kube_dir="$HOME/.kube"
+    
+    # Filter for .yaml and .conf files, or just everything except 'cache'
+    local choice=$(ls "$kube_dir" | grep -v "cache" | fzf --height 40% --reverse --prompt="Select Kubeconfig: ")
+
+    if [ -n "$choice" ]; then
+        export KUBECONFIG="$kube_dir/$choice"
+        echo "KUBECONFIG set to: $KUBECONFIG"
+        
+        # Optional: Switch context to the first one available in the file
+        kubectl config use-context $(kubectl config get-contexts -o name | head -n 1) 2>/dev/null
+    else
+        echo "No selection made."
+    fi
 }
