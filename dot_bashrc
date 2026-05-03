@@ -14,8 +14,9 @@ HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
 shopt -s histappend
-PROMPT_COMMAND="_direnv_hook;history -a;"
-export PROMPT_COMMAND="_log_pwd; $PROMPT_COMMAND" # add __zoxide_hook; if needed
+eval "$(direnv hook bash)"
+PROMPT_COMMAND=" history -a"
+# PROMPT_COMMAND="_log_pwd; history -a"
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
@@ -129,7 +130,7 @@ export PATH="$HOME/.local/bin:$HOME/.local/bin/custom:/home/ed/.cargo/bin:/nix/v
 # Home brew path
 export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin"
 
-## ENVIRONMENTs
+## ADD ENVIRONMENTs
 export BRAVE_BOOKMARKS="$HOME/.config/BraveSoftware/Brave-Browser/Default/Bookmarks"
 export EDITOR="nvim"
 export VISUAL="nvim"
@@ -137,7 +138,6 @@ set -o vi
 #export PATH=/home/ed/.opencode/bin:$PATH
 export BASH_ENV=~/.bashrc
 
-eval "$(direnv hook bash)"
 #eval "$(zoxide init bash)"
 
 ## KEY BINDINGS
@@ -158,6 +158,7 @@ esac
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
+#export LESS='-R -F -X'
 
 #eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
@@ -197,7 +198,6 @@ alias free="free -h"
 alias find='sudo find 2>/dev/null'
 alias path='echo -e ${PATH//:/\\n}'
 alias dow='cd ~/Downloads/; l'
-alias gs='git status'
 alias popd='popd > /dev/null; dirs -v'
 alias df='df -h'
 alias mark='echo "$(basename "$PWD")|$PWD" >> ~/.bookmarks; sort -u -o ~/.bookmarks ~/.bookmarks' #add current dir to bookmarks
@@ -210,14 +210,14 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 #====== Some function
 
-man() {
-    if [ $# -eq 0 ]; then
-        command man
-        return
-    fi
-
-    nvim -c "Man $1" +only
-}
+# man() {
+#     if [ $# -eq 0 ]; then
+#         command man
+#         return
+#     fi
+#
+#     nvim -c "Man $1" +only
+# }
 
 pushd() {
   builtin pushd "$@" >/dev/null
@@ -689,4 +689,47 @@ sk() {
     else
         echo "No selection made."
     fi
+}
+
+gsa4() {
+    local input output default_output
+
+    input=$(
+        find . -maxdepth 1 -type f \( -iname '*.pdf' -o -iname '*.ps' \) -printf '%f\n' \
+        | sort \
+        | fzf --prompt='Input file> '
+    ) || return 1
+
+    [[ -n "$input" ]] || return 1
+
+    default_output="${input%.*}-A4.pdf"
+
+    read -r -e -p "Output file [$default_output]: " output
+    output=${output:-$default_output}
+
+    /usr/bin/gs \
+      -o "$output" \
+      -sDEVICE=pdfwrite \
+      -sPAPERSIZE=a4 \
+      -dFIXEDMEDIA \
+      -dPDFFitPage \
+      "$input"
+}
+
+bat() {
+  local battery="${1:-BAT0}"
+  local base="/sys/class/power_supply/$battery"
+
+  if [[ ! -d "$base" ]]; then
+    echo "battery not found: $battery" >&2
+    echo "available:" >&2
+    ls /sys/class/power_supply >&2
+    return 1
+  fi
+
+  local status capacity
+  status=$(<"$base/status")
+  capacity=$(<"$base/capacity")
+
+  printf "%s: %s%% (%s)\n" "$battery" "$capacity" "$status"
 }

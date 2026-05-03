@@ -15,14 +15,16 @@ bindsym $mod+shift+p move scratchpad
 bindsym $mod+p scratchpad show
 
 # start dmenu (a program launcher)
-#bindsym $mod+d exec --no-startup-id dmenu_run
+#bindsym $mod+d exec --no-startup-id dmenu_run -l 20
+#bindsym $mod+d exec --no-startup-id rofi -show 
+
 
 # Vicinea General Launcher (alternative: Albert, Rofi, Dmenu)
-#bindsym Mod1+space exec --no-startup-id sh -c 'vicinae toggle'
+#bindsym Mod1+space exec --no-startup-id bash -c '~/.local/bin/vicinae toggle'
 
 # Rofi switch windows, can used to launch app by using \<name>
 #bindsym --release Mod1+space exec rofi -show window -sort -selected-row 1 -kb-accept-enter
-#bindsym Mod1+space exec --no-startup-id rofi -show
+bindsym Mod1+space exec --no-startup-id rofi -config /home/ed/.config/rofi/config.rasi -show combi
 
 # Setup multiple monitors
 #bindsym $mod+shift+m exec --no-startup-id /home/zen/.zen_scripts/i3monitor
@@ -176,7 +178,7 @@ focus_follows_mouse no
 hide_edge_borders smart
 
 # Wallpaper
-exec_always --no-startup-id feh --bg-fill /home/ed/Pictures/wallpaper/bg10.jpg
+#exec_always --no-startup-id feh --bg-fill /home/ed/Pictures/wallpaper/bg10.jpg
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -220,8 +222,9 @@ i3bar_command i3bar --transparency
 tiling_drag modifier titlebar
 
 # Gap
-gaps outer 5 
-gaps inner 10
+gaps outer 0
+gaps bottom 10
+gaps inner 0
 
 # Title
 title_align center

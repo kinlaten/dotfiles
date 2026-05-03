@@ -1,8 +1,14 @@
 configuration {
-    modi: "Web:~/.config/rofi/web,combi";
+    modes: "combi";
     combi-modi: "window,ssh,drun";
     sidebar-mode: true;
+
     kb-mode-next: "Tab";
+    kb-mode-previous: "Shift+Tab";
+
     kb-element-next: "";
-    kb-element-prev: "";
+    kb-element-previous: "";
+
+    kb-row-tab: "";
+    kb-mode-complete: "";
 }
