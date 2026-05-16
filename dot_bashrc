@@ -7,7 +7,6 @@ case $- in
 *i*) ;;
 *) return ;;
 esac
-
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -168,6 +167,7 @@ export KUBECONFIG=~/.kube/zenkin-kubeconfig.yaml
 
 # ADD ALIAS HERE
 
+alias rm='rm -I'
 alias sshconfig="nvim ~/.ssh/config"
 alias sd="shutdown -h now"
 alias ts="sudo tailscale status"
@@ -694,18 +694,20 @@ sk() {
 gsa4() {
     local input output default_output
 
-    input=$(
-        find . -maxdepth 1 -type f \( -iname '*.pdf' -o -iname '*.ps' \) -printf '%f\n' \
-        | sort \
-        | fzf --prompt='Input file> '
-    ) || return 1
+    if [[ $# -lt 1 ]]; then
+        echo "Usage: gsa4 <input.pdf> [output.pdf]" >&2
+        return 1
+    fi
 
-    [[ -n "$input" ]] || return 1
+    input=$1
 
-    default_output="${input%.*}-A4.pdf"
+    if [[ ! -f "$input" ]]; then
+        echo "Input file not found: $input" >&2
+        return 1
+    fi
 
-    read -r -e -p "Output file [$default_output]: " output
-    output=${output:-$default_output}
+    default_output="${input%.pdf}-A4.pdf"
+    output=${2:-$default_output}
 
     /usr/bin/gs \
       -o "$output" \
@@ -715,6 +717,8 @@ gsa4() {
       -dPDFFitPage \
       "$input"
 }
+
+
 
 bat() {
   local battery="${1:-BAT0}"
