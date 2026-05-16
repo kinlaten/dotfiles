@@ -737,3 +737,12 @@ bat() {
 
   printf "%s: %s%% (%s)\n" "$battery" "$capacity" "$status"
 }
+
+dict() {
+    if [[ $# -lt 1 ]]; then
+        echo "Usage: dict <word>" >&2
+        return 1
+    fi
+
+    curl -s "dict://dict.org/d:$*" | less
+}
