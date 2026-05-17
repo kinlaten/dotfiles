@@ -164,6 +164,10 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 #export KUBECONFIG=~/.kube/keb-kubeconfig.yaml
 export KUBECONFIG=~/.kube/zenkin-kubeconfig.yaml
 
+export COLOR_SCHEME="gruvbox_dark"
+if [ "$TERM" = "linux" ] && command -v ttyscheme >/dev/null; then
+    ttyscheme "$COLOR_SCHEME"
+fi
 
 # ADD ALIAS HERE
 
