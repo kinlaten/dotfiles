@@ -9,24 +9,12 @@
 # it gets replaced by the "replace" string.
 
 # yaml-language-server: $schema=https://raw.githubusercontent.com/espanso/espanso/dev/schemas/match.schema.json
+# And much more! For more information, visit the docs: https://espanso.org/docs/
 
 matches:
-  # Simple text replacement
-  - trigger: ":espanso"
-    replace: "Hi there!"
-
   # NOTE: espanso uses YAML to define matches, so pay attention to the indentation!
 
   # But matches can also be dynamic:
-
-  # Print the current date
-  - trigger: ":date"
-    replace: "{{mydate}}"
-    vars:
-      - name: mydate
-        type: date
-        params:
-          format: "%m/%d/%Y"
 
   # Print the output of a shell command
   - trigger: ":shell"
@@ -38,6 +26,74 @@ matches:
           cmd: "echo 'Hello from your shell'"
 
   - trigger: ":mn"
-    replace: "meaning"
+    replace: " meaning"
 
-  # And much more! For more information, visit the docs: https://espanso.org/docs/
+  - trigger: ":ep"
+    replace: "explain "
+
+  - trigger: ":pml"
+    replace: "programming language"
+
+  - trigger: ":wi"
+    replace: "what is "
+
+  - trigger: ":quote"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: choice
+        params:
+          values:
+            - "Every moment is a fresh beginning."
+            - "Everything you can imagine is real."
+            - "Whatever you do, do it well."
+
+  # Date and time
+  - trigger: ":date"
+    replace: "{{mydatef}}"
+    vars:
+      - name: mydatef
+        type: date
+        params:
+          format: "%e %B %Y"
+
+  - trigger: ":time"
+    replace: "{{mytime}}"
+    vars:
+      - name: mytime
+        type: date
+        params:
+          format: "%H:%M"
+
+  - trigger: ":now"
+    replace: "{{now}}"
+    vars:
+      - name: now
+        type: date
+        params:
+          format: "%e %B %Y, %H:%M:%S"
+
+  # My personal id
+  - trigger: ":me"
+    replace: "kinlaten"
+
+  - trigger: ":kgt"
+    replace: "kingiaitri@gmail.com"
+
+  - trigger: ":kcv"
+    replace: "kincongviec@gmail.com"
+
+    # Lorem: random text
+  - trigger: ":lorem"
+    replace: "{{text_length}}"
+    vars:
+      - name: text_length
+        type: choice
+        params:
+          values:
+            - label: "Short"
+              id: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis est mauris. Sed ut rhoncus eros."
+            - label: "Medium"
+              id: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat condimentum ipsum, et pellentesque nulla sagittis eu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis est mauris. Sed ut rhoncus eros. In hac habitasse platea dictumst. Maecenas malesuada varius erat eget maximus."
+            - label: "Long"
+              id: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat condimentum ipsum, et pellentesque nulla sagittis eu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis est mauris. Sed ut rhoncus eros. In hac habitasse platea dictumst. Maecenas malesuada varius erat eget maximus. Etiam tortor neque, consequat at ex in, mattis lacinia justo. In hac habitasse platea dictumst. Nullam porta fermentum orci ut tincidunt. Pellentesque mattis enim cursus quam auctor venenatis. Vivamus ac ultricies est."

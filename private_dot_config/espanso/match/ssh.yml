@@ -1,0 +1,14 @@
+matches:
+  - trigger: ":ssh"
+    replace: "{{host}}"
+    vars:
+      - name: host
+        type: choice
+        params:
+          values:
+            - label: "Zenkin Home"
+              id: "ssh ed@100.123.92.36 -i ~/.ssh/zenkin-cluster"
+            - label: "Zenkin Hetzner FI"
+              id: "ssh ed@100.72.1.103 -i ~/.ssh/zenkin-cluster"
+            - label: "Storage Box"
+              id: "ssh u538191@u538191.your-storagebox.de -p 23"
