@@ -131,8 +131,8 @@ export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbi
 
 ## ADD ENVIRONMENTs
 export BRAVE_BOOKMARKS="$HOME/.config/BraveSoftware/Brave-Browser/Default/Bookmarks"
-export EDITOR="nvim"
-export VISUAL="nvim"
+export EDITOR="vim"
+export VISUAL="vim"
 set -o vi
 #export PATH=/home/ed/.opencode/bin:$PATH
 export BASH_ENV=~/.bashrc
@@ -207,6 +207,7 @@ alias df='df -h'
 alias mark='echo "$(basename "$PWD")|$PWD" >> ~/.bookmarks; sort -u -o ~/.bookmarks ~/.bookmarks' #add current dir to bookmarks
 alias passgen="openssl rand -hex 32 | tee /dev/tty | xclip -selection clipboard"
 alias cwd='pwd | xargs printf %s | tee /dev/tty | xclip -sel clip'
+alias clipp="xclip -selection clipboard -o"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -749,4 +750,28 @@ dict() {
     fi
 
     curl -s "dict://dict.org/d:$*" | less
+}
+
+# ghostscript format pdf file into frame easy to print A4
+pdfa4() {
+    if [ $# -ne 1 ]; then
+        echo "Usage: pdfa4 input.pdf"
+        return 1
+    fi
+
+    gs -o output.pdf \
+       -sDEVICE=pdfwrite \
+       -sPAPERSIZE=a4 \
+       -dFIXEDMEDIA \
+       -dPDFFitPage \
+       "$1"
+}
+
+# Copy path of files. Depends on function clip()
+pathof() {
+    for file in "$@"; do
+        # 1. Resolve to absolute path
+        # 2. Use sed to replace every space ' ' with an escaped space '\ '
+        realpath "$file" | sed 's/ /\\ /g'
+    done | clip
 }

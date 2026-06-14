@@ -31,6 +31,9 @@ matches:
   - trigger: ":ep"
     replace: "explain "
 
+  - trigger: ":sf"
+    replace: "stands for"
+
   - trigger: ":pml"
     replace: "programming language"
 
@@ -82,6 +85,14 @@ matches:
 
   - trigger: ":kcv"
     replace: "kincongviec@gmail.com"
+
+  # Links
+  - trigger: ":vwk"
+    replace: "https://vi.wiktionary.org/wiki/"
+
+  - trigger: ":ewk"
+    replace: "https://en.wiktionary.org/wiki/"
+
 
     # Lorem: random text
   - trigger: ":lorem"
