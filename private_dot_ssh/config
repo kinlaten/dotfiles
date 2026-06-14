@@ -1,21 +1,74 @@
+Host github-kinlaten
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/github-general
+    IdentitiesOnly yes
+
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/github-general
+    IdentitiesOnly yes
+
 Host uow
 HostName capa.its.uow.edu.au
 User aqp705
 
-Host hp-home
-HostName 192.168.20.97
+Host zenkin-home-manager-1
+HostName 100.123.92.36
+User ed
+IdentityFile ~/.ssh/zenkin-cluster
+
+Host ed-think
+HostName 100.116.33.24
 User ed
 
-Host thinkpad-home
-HostName 192.168.20.98
+Host zenkin-hetzner-fi-1
+HostName 100.72.1.103
 User ed
+IdentityFile ~/.ssh/zenkin-cluster
 
-Host hetzner-vps
-HostName 2a01:4f9:c013:de7a::1
-User ed
-
-Host hetzner-box
+Host zenkin-hetzner-box
 HostName u538191.your-storagebox.de
 User u538191
 Port 23
+
+#Kebsoft
+Host keb-hosting-sg-1
+HostName 198.38.91.57
+User root
+IdentityFile ~/.ssh/keb-cluster
+
+Host keb-api
+HostName 188.34.177.214
+User root
+IdentityFile ~/.ssh/keb-cluster
+
+Host keb-hetzner-fi-1
+HostName 135.181.146.138
+User root
+IdentityFile ~/.ssh/keb-cluster
+
+Host keb-hetzner-us-west-1
+HostName 5.78.186.165
+User root
+IdentityFile ~/.ssh/keb-cluster
+
+Host keb-greencloud-sg-1
+HostName 96.9.231.211
+User root
+IdentityFile ~/.ssh/keb-cluster
+
+Host keb-unihost-jp-1
+HostName 142.91.109.93 
+User root
+IdentityFile ~/.ssh/keb-cluster
+Port 22
+
+
+Host keb-luma-es-1
+HostName 185.200.244.234 
+User root
+IdentityFile ~/.ssh/keb-cluster
+Port 22
 

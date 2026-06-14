@@ -7,8 +7,20 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "cli_default_open_behavior": "existing_window",
+  "project_panel": {
+    "dock": "left"
+  },
+  "collaboration_panel": {
+    "dock": "left"
+  },
+  "agent": {
+    "dock": "right",
+    "favorite_models": [],
+    "model_parameters": []
+  },
   "outline_panel": {
-    "dock": "right"
+    "dock": "left"
   },
   "diff_view_style": "split",
   "git_panel": {
@@ -25,6 +37,11 @@
     }
   },
   "agent_servers": {
+    "gemini": {
+      "default_model": "gemini-3.1-flash-lite",
+      "default_mode": "yolo",
+      "type": "registry"
+    },
     "codex-acp": {
       "type": "registry"
     }

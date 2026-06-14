@@ -11,20 +11,18 @@ set $mod Mod4
 
 # Scratchpad, use terminal+tmux persistent everywhere 
 #for_window [class="Alacritty" instance="__tmux_scratchpad"] floating enable, move to scratchpad
-bindsym $mod+shift+s move scratchpad
-bindsym $mod+s scratchpad show
+bindsym $mod+shift+p move scratchpad
+bindsym $mod+p scratchpad show
 
 # start dmenu (a program launcher)
-#bindsym $mod+d exec --no-startup-id dmenu_run -l 20
-#bindsym $mod+d exec --no-startup-id rofi -show 
-
+#bindsym $mod+d exec --no-startup-id dmenu_run
 
 # Vicinea General Launcher (alternative: Albert, Rofi, Dmenu)
-#bindsym Mod1+space exec --no-startup-id bash -c '~/.local/bin/vicinae toggle'
+#bindsym Mod1+space exec --no-startup-id sh -c 'vicinae toggle'
 
 # Rofi switch windows, can used to launch app by using \<name>
 #bindsym --release Mod1+space exec rofi -show window -sort -selected-row 1 -kb-accept-enter
-bindsym Mod1+space exec --no-startup-id rofi -config /home/ed/.config/rofi/config.rasi -show combi
+#bindsym Mod1+space exec --no-startup-id rofi -show
 
 # Setup multiple monitors
 #bindsym $mod+shift+m exec --no-startup-id /home/zen/.zen_scripts/i3monitor
@@ -94,7 +92,7 @@ bindsym $mod+Shift+Right move right
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-#bindsym $mod+s layout stacking
+bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
@@ -105,7 +103,7 @@ bindsym $mod+Shift+space floating toggle
 #bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-#bindsym $mod+a focus parent
+bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -178,7 +176,7 @@ focus_follows_mouse no
 hide_edge_borders smart
 
 # Wallpaper
-exec_always --no-startup-id feh --bg-fill /usr/share/images/desktop-base/default
+exec_always --no-startup-id feh --bg-fill /home/ed/Pictures/wallpaper/bg10.jpg
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -203,37 +201,33 @@ set $ws10 "0"
 bar {
   status_command i3status
   workspace_buttons yes
-workspace_min_width 80
+workspace_min_width 40
 strip_workspace_name no
   # mode hide
   # hidden_state hide
   # modifier Mod4
-i3bar_command i3bar --transparency
-  colors{
-
-    #background      #a6da95
-#    statusline #F4DBD6
-
-  }
+#i3bar_command i3bar --transparency
+#   colors{
+#
+#     #background      #a6da95
+# #    statusline #F4DBD6
+#
+#   }
 }
 
 # move tiling windows via drag & drop by left-clicking into the title bar,
 # or left-clicking anywhere into the window while holding the floating modifier.
-tiling_drag modifier titlebar
+#tiling_drag modifier titlebar
 
 # Gap
-gaps outer 0
+gaps outer 5 
 gaps inner 10
-gaps top 0
-gaps bottom 10
-smart_gaps on
 
 # Title
 title_align center
 
 # Window
-default_border  none
-default_floating_border pixel 5
+default_border none
 
 ## AUTOSTART
 # Start XDG autostart .desktop files using dex. See also
@@ -255,3 +249,10 @@ assign [class="^firefox_firefox$"] → number "2: pdf"
 exec_always autotiling -w 1 3 5 7 9 -l 2
 
 exec_always --no-startup-id ~/.local/bin/custom/auto_scratchpad.py True,,,,,
+
+# input * xkb_layout "us,de,ru"
+# input * xkb_variant "colemak,,typewriter"
+# input * xkb_options "grp:win_space_toggle"
+# input "MANUFACTURER1 Keyboard" xkb_model "pc101"
+# input "MANUFACTURER2 Keyboard" xkb_model "jp106"
+include /etc/sway/config.d/*

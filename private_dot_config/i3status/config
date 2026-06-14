@@ -26,14 +26,14 @@ order += "load"
 #order += "run_watch DHCP"
 #order += "ipv6"
 #order += "run_watch VPN"
-order += "wireless wlp8s0"
-order += "ethernet enp0s25"
+order += "wireless wlp105s0"
+order += "ethernet eno1"
 order += "volume master"
 #order += "battery 0"
 #order += "cpu_temperature 0"
 order += "tztime local"
 
-wireless wlp8s0 {
+wireless wlp105s0 {
     format_up = "%quality  %essid (⚡%bitrate / %frequency) %ip "
     format_down = "No Wifi"
 }
