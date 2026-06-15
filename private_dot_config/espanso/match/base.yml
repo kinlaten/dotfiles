@@ -19,13 +19,18 @@ matches:
   # GENERAL HERE
   - trigger: ":esp"
     replace: |
-       - trigger: "$|$"
-         replace: ""
+       - trigger: "a"
+         replace: "a"
 
   - trigger: ":ht"
     replace: "how to "
 
+  - trigger: ":ma"
+    replace: "compares to modern alternatives? should we switch or not; usecases for each"
 
+  - trigger: ":ad"
+    replace: "android "
+    
   - trigger: ":mn"
     replace: " meaning"
 
@@ -83,11 +88,18 @@ matches:
     replace: "kincongviec@gmail.com"
 
   # URL HERE
+    #wiktionary vietnamese
   - trigger: ":vwk"
     replace: "https://vi.wiktionary.org/wiki/"
 
+    #wiktionary english
   - triggers: [':ewk', ':wk']
     replace: "https://en.wiktionary.org/wiki/"
+  
+    #google image
+  - trigger: ":im"
+    replace: "https://www.google.com/search?udm=2&q="
+
 
 
     # LOREM HERE
