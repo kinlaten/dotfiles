@@ -22,6 +22,9 @@ matches:
        - trigger: "a"
          replace: "a"
 
+  - trigger: ":pm"
+    replace: "programming language"
+
   - trigger: ":ht"
     replace: "how to "
 
@@ -35,7 +38,18 @@ matches:
     replace: " meaning"
 
   - trigger: ":ep"
-    replace: "explain "
+    replace: "{{query}}"
+    vars:
+      - name: query
+        type: choice
+        params:
+          values:
+            - label: "without code"
+              id: "explain and give sample to demonstrate; keep it concise and simple"
+            - label: "with code"
+              id: "explain concept and give code sample; keep it concise and simple"
+            - label: "detail with code"
+              id: "explain concept and give detail code sample; and explaination comment on important lines; give some reliable online resource to understand deeper by order"
 
   - trigger: ":sf"
     replace: "stands for"
@@ -97,7 +111,7 @@ matches:
     replace: "https://en.wiktionary.org/wiki/"
   
     #google image
-  - trigger: ":im"
+  - trigger: ":gm"
     replace: "https://www.google.com/search?udm=2&q="
 
 
