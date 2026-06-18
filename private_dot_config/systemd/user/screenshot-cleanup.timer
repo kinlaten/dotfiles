@@ -1,0 +1,10 @@
+[Unit]
+Description=Run screenshot cleanup daily
+
+[Timer]
+# Run once a day at boot, then every 24 hours
+OnBootSec=10min
+OnUnitActiveSec=24h
+
+[Install]
+WantedBy=timers.target

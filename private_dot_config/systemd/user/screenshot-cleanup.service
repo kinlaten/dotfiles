@@ -1,0 +1,7 @@
+[Unit]
+Description=Delete screenshots older than 2 days
+
+[Service]
+Type=oneshot
+# -mtime +2 deletes files modified more than 48 hours ago
+ExecStart=/usr/bin/find /home/%u/screenshots/ -name "*.png" -type f -mtime +2 -delete
