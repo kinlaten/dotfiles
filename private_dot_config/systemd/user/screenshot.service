@@ -5,6 +5,8 @@ Description=Capture screen with maim
 Type=oneshot
 # Adjust the command for your display, e.g., :0
 Environment=DISPLAY=:0
+EnvironmentFile=%h/.config/systemd/user/screenshot.env
+
 ExecStartPre=/usr/bin/bash -c 'command -v maim >/dev/null 2>&1 || { echo "maim not found"; exit 1; }'
-ExecStartPre=/usr/bin/mkdir -p /home/%u/screenshots
-ExecStart=/usr/bin/bash -c '/usr/bin/maim "/home/%u/screenshots/screen_$(date +%%Y%%b%%d_%%H%%M%%S).png"'
+ExecStartPre=/usr/bin/mkdir -p ${SCREENSHOT_DIR}
+ExecStart=/usr/bin/bash -c '/usr/bin/maim "${SCREENSHOT_DIR}/screen_$(date +%%Y%%b%%d_%%H%%M%%S).png"'
