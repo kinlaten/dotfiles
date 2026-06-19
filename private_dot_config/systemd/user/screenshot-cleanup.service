@@ -5,4 +5,4 @@ Description=Delete screenshots older than 2 days
 Type=oneshot
 EnvironmentFile=%h/.config/systemd/user/screenshot-cleanup.env
 # -mtime +2 deletes files modified more than 48 hours ago
-ExecStart=/usr/bin/find ${SCREENSHOT_DIR} -name "*.png" -type f -mtime +{KEEP_DAYS} -delete ${LOG_LEVEL:+ -print}'
+ExecStart=/usr/bin/find ${SCREENSHOT_DIR} -name "*.png" -type f -mtime +${KEEP_DAYS} -delete 

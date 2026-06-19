@@ -2,13 +2,11 @@
     "window.autoDetectColorScheme": true,
     "workbench.preferredLightColorTheme": "Dark 2026",
     "chat.viewSessions.orientation": "stacked",
-    "jdk.telemetry.enabled": false
-
+    "jdk.telemetry.enabled": false,
     // Disable AI/Copilot suggestions
     "github.copilot.enable": {
         "*": false
     },
-    
     // Disable standard editor autocomplete/suggestions
     // "editor.suggestOnTriggerCharacters": false,
     // "editor.quickSuggestions": {
@@ -17,11 +15,25 @@
     //     "strings": false
     // },
     "editor.acceptSuggestionOnEnter": "off",
-    
     // Disable parameter hints and lightbulbs
     // "editor.parameterHints.enabled": false,
-    // "editor.lightbulb.enabled": false,
-    
+    "editor.lightbulb.enabled": "off",
     // Disable AI chat features
-    "chat.editor.autoImportSuggestions": false
+    "chat.editor.autoImportSuggestions": false,
+    "[java]": {
+        "editor.defaultFormatter": "redhat.java"
+    },
+    "vim.normalModeKeyBindings": [
+        {
+            "before": [
+                "C-k"
+            ],
+            "commands": [
+                "editor.action.showHover"
+            ]
+        }
+    ],
+    "files.autoSave": "afterDelay",
+    "editor.formatOnSave": true,
+    "editor.codeActions.triggerOnFocusChange": true
 }
