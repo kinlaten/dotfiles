@@ -22,6 +22,12 @@ matches:
        - trigger: "a"
          replace: "a"
 
+  - trigger: ":cm"
+    replace: "command "
+
+  - trigger: ":eq"
+    replace: "what equivalent to this?"
+
   - trigger: ":pm"
     replace: "programming language"
 
@@ -31,9 +37,9 @@ matches:
   - trigger: ":ma"
     replace: "compares to modern alternatives? should we switch or not; usecases for each"
 
-  - trigger: ":ad"
-    replace: "android "
-    
+  - trigger: ":tf"
+    replace: "#:~:text="
+
   - trigger: ":mn"
     replace: " meaning"
 
@@ -86,6 +92,9 @@ matches:
           format: "%e %B %Y, %H:%M:%S"
 
   # PERSONAL ID HERE
+  - trigger: ":address"
+    replace: "U 1 21 Gladstone AVE, Wollongong, NSW, 2500"
+
   - trigger: ":me"
     replace: "kinlaten"
 
@@ -95,6 +104,9 @@ matches:
   - trigger: ":phone"
     replace: "0410166284"
 
+  - trigger: ":ep"
+    replace: "edward.phaq@gmail.com"
+
   - trigger: ":kgt"
     replace: "kingiaitri@gmail.com"
 
@@ -103,6 +115,9 @@ matches:
 
   # URL HERE
     #wiktionary vietnamese
+  - trigger: ":wwk"
+    replace: "https://en.wikipedia.org/wiki/"
+
   - trigger: ":vwk"
     replace: "https://vi.wiktionary.org/wiki/"
 
@@ -111,8 +126,15 @@ matches:
     replace: "https://en.wiktionary.org/wiki/"
   
     #google image
-  - trigger: ":gm"
+  - trigger: ":gi"
     replace: "https://www.google.com/search?udm=2&q="
+
+    #google map
+  - trigger: ":gm"
+    replace: "https://www.google.com/maps/search/"
+
+  - trigger: ":gg"
+    replace: "https://www.google.com/search?q="
 
 
 

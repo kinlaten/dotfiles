@@ -14,7 +14,7 @@
     //     "comments": false,
     //     "strings": false
     // },
-    "editor.acceptSuggestionOnEnter": "off",
+    "editor.acceptSuggestionOnEnter": "smart",
     // Disable parameter hints and lightbulbs
     // "editor.parameterHints.enabled": false,
     "editor.lightbulb.enabled": "off",
@@ -35,5 +35,10 @@
     ],
     "files.autoSave": "afterDelay",
     "editor.formatOnSave": true,
-    "editor.codeActions.triggerOnFocusChange": true
+    "editor.codeActions.triggerOnFocusChange": true,
+    "workbench.secondarySideBar.defaultVisibility": "hidden",
+    "explorer.confirmDragAndDrop": false,
+    "chat.disableAIFeatures": true,
+    "editor.inlineSuggest.suppressSuggestions": true,
+    "git.autofetch": true
 }

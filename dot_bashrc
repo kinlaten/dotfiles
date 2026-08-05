@@ -767,6 +767,126 @@ pdfa4() {
        "$1"
 }
 
+pdfa4big() {
+    if (( $# != 1 )); then
+        echo "Usage: pdfa4big input.pdf"
+        return 1
+    fi
+
+    local input="$1"
+    local base="${input%.pdf}"
+    local workdir="${base}-tmp"
+    local output="${base}-A4.pdf"
+
+    mkdir -p "$workdir"
+
+    echo "Checking PDF pages..."
+
+    local pages
+    pages=$(pdfinfo "$input" | awk '/Pages:/ {print $2}')
+
+    if [[ -z "$pages" ]]; then
+        echo "Cannot determine page count"
+        return 1
+    fi
+
+    echo "Total pages: $pages"
+
+    local chunk_size=100
+    local start=1
+    local part=1
+    local normalized_parts=()
+
+    while (( start <= pages )); do
+
+        local end=$((start + chunk_size - 1))
+
+        if (( end > pages )); then
+            end=$pages
+        fi
+
+        echo
+        echo "=============================="
+        echo "Processing pages $start-$end"
+        echo "=============================="
+
+        local split="$workdir/part-${part}.pdf"
+        local normalized="$workdir/part-${part}-A4.pdf"
+        local cleaned="$workdir/part-${part}-A4-clean.pdf"
+
+        echo "Splitting..."
+
+        if ! qpdf \
+            "$input" \
+            --pages "$input" "$start-$end" \
+            -- \
+            "$split"
+        then
+            echo "qpdf split failed"
+            return 1
+        fi
+
+
+        echo "Converting to A4..."
+
+        if ! gs \
+            -q \
+            -dNOPAUSE \
+            -dBATCH \
+            -sDEVICE=pdfwrite \
+            -dFIXEDMEDIA \
+            -dDEVICEWIDTHPOINTS=595 \
+            -dDEVICEHEIGHTPOINTS=842 \
+            -dPDFFitPage \
+            -dAutoRotatePages=/None \
+            -sOutputFile="$normalized" \
+            "$split"
+        then
+            echo "Ghostscript failed on part $part"
+            return 1
+        fi
+
+
+        echo "Cleaning PDF..."
+
+        if ! qpdf \
+            --linearize \
+            "$normalized" \
+            "$cleaned"
+        then
+            echo "qpdf cleanup failed on part $part"
+            return 1
+        fi
+
+        normalized_parts+=("$cleaned")
+
+        start=$((end + 1))
+        ((part++))
+
+    done
+
+
+    echo
+    echo "Merging parts..."
+
+    if ! qpdf \
+        --empty \
+        --pages "${normalized_parts[@]}" \
+        -- \
+        "$output"
+    then
+        echo "Merge failed"
+        return 1
+    fi
+
+
+    rm -rf "$workdir"
+
+    echo
+    echo "Finished:"
+    echo "$output"
+}
+
 # Copy path of files. Depends on function clip()
 pathof() {
     for file in "$@"; do
@@ -775,3 +895,71 @@ pathof() {
         realpath "$file" | sed 's/ /\\ /g'
     done | clip
 }
+
+pdf2md() {
+    # Check if marker_single is installed
+    if ! command -v marker_single &> /dev/null; then
+        echo "Error: marker_single not found. Please install it first."
+        return 1
+    fi
+
+    # Check if a file was provided
+    if [ $# -eq 0 ]; then
+        echo "Usage: pdf2md <pdf_file>"
+        echo "Example: pdf2md /path/to/document.pdf"
+        return 1
+    fi
+
+    local input_file="$1"
+    
+    # Check if the file exists
+    if [ ! -f "$input_file" ]; then
+        echo "Error: File '$input_file' not found."
+        return 1
+    fi
+
+    # Check if it's a PDF file
+    if [[ ! "$input_file" =~ \.pdf$ ]]; then
+        echo "Warning: File doesn't have .pdf extension. Are you sure this is a PDF?"
+    fi
+
+    # Get the base filename without extension
+    local base_name=$(basename "$input_file" .pdf)
+    
+    # Output file in current directory
+    local output_file="./${base_name}.md"
+    
+    echo "Converting '$input_file' to '$output_file'..."
+    
+    # Run marker_single with output to current directory
+    if marker_single "$input_file" --output_dir "$(pwd)"; then
+        echo "✓ Conversion complete! Output saved as: $output_file"
+        
+        # Check if file was created
+        if [ -f "$output_file" ]; then
+            echo "File size: $(du -h "$output_file" | cut -f1)"
+        else
+            echo "Note: Output file might have a different name. Check the current directory."
+        fi
+    else
+        echo "Error: Conversion failed."
+        return 1
+    fi
+}
+
+# Function to build and run OpenGL program
+gl-run() {
+    local fileName="$1"
+    if [ -z "$fileName" ]; then
+        echo "Usage: gl-run <source_file>"
+        return 1
+    fi
+    g++ "$fileName" src/glad.c -I./include -o program -lglfw -lGL
+    if [ $? -eq 0 ]; then
+        echo "Build successful! Running program..."
+        ./program
+    else
+        echo "Build failed!"
+    fi
+}
+
