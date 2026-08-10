@@ -42,7 +42,7 @@ Then use git to push to remote repo as usual.
 ## Migrate config files to new system
 
 ```sh
-chezmoi init --apply https://github.com/kinlaten/dotfiles.git
+chezmoi init --apply git@github.com:kinlaten/dotfiles.git
 ```
 
 Replace `kinlaten` as your Github username
