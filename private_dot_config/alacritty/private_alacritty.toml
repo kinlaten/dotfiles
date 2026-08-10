@@ -138,5 +138,6 @@ y = 6
 [general]
 import = [ "~/.config/alacritty/themes/everforest_dark" ] # or tokyo-night-storm.toml
 
-
-
+[terminal.shell]
+program = "/usr/bin/bash"
+args = ["-c", "/home/linuxbrew/.linuxbrew/bin/tmux|| bash"]
