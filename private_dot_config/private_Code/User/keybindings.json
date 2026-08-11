@@ -4,5 +4,70 @@
         "key": "ctrl+p",
         "command": "-extension.vim_ctrl+p",
         "when": "editorTextFocus && vim.active && vim.use<C-p> && !inDebugRepl || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'CommandlineInProgress' || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'SearchInProgressMode'"
+    },
+    {
+        "key": "ctrl+shift+a",
+        "command": "editor.emmet.action.wrapWithAbbreviation"
+    },
+    {
+        "key": "ctrl+shift+h",
+        "command": "workbench.action.moveEditorLeftInGroup"
+    },
+    {
+        "key": "ctrl+shift+pageup",
+        "command": "-workbench.action.moveEditorLeftInGroup"
+    },
+    {
+        "key": "ctrl+shift+l",
+        "command": "workbench.action.moveEditorRightInGroup"
+    },
+    {
+        "key": "ctrl+shift+pagedown",
+        "command": "-workbench.action.moveEditorRightInGroup"
+    },
+    {
+        "key": "ctrl+shift+l",
+        "command": "workbench.action.moveEditorToNextGroup"
+    },
+    {
+        "key": "ctrl+alt+right",
+        "command": "-workbench.action.moveEditorToNextGroup"
+    },
+    {
+        "key": "ctrl+shift+l",
+        "command": "workbench.action.switchWindow"
+    },
+    {
+        "key": "ctrl+shift+l",
+        "command": "diffEditor.switchSide"
+    },
+    {
+        "key": "ctrl+shift+l",
+        "command": "workbench.action.focusNextGroup"
+    },
+    {
+        "key": "shift+enter backspace",
+        "command": "editor.action.inlineSuggest.commit",
+        "when": "inlineEditIsVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible"
+    },
+    {
+        "key": "tab",
+        "command": "-editor.action.inlineSuggest.commit",
+        "when": "inlineEditIsVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "-extension.vim_ctrl+n",
+        "when": "editorTextFocus && vim.active && vim.use<C-n> && !inDebugRepl || vim.active && vim.use<C-n> && !inDebugRepl && vim.mode == 'CommandlineInProgress' || vim.active && vim.use<C-n> && !inDebugRepl && vim.mode == 'SearchInProgressMode'"
+    },
+    {
+        "key": "j",
+        "command": "-notebook.focusNextEditor",
+        "when": "editorTextFocus && inputFocus && notebookEditorFocused && vim.mode == 'Normal' && notebookEditorCursorAtBoundary != 'none' && notebookEditorCursorAtBoundary != 'top'"
+    },
+    {
+        "key": "k",
+        "command": "-notebook.focusPreviousEditor",
+        "when": "editorTextFocus && inputFocus && notebookEditorFocused && vim.mode == 'Normal' && notebookEditorCursorAtBoundary != 'bottom' && notebookEditorCursorAtBoundary != 'none'"
     }
 ]

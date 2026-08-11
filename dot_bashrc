@@ -964,3 +964,4 @@ gl-run() {
     fi
 }
 
+source ~/.github_env

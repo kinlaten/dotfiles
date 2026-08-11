@@ -38,7 +38,12 @@
     "editor.codeActions.triggerOnFocusChange": true,
     "workbench.secondarySideBar.defaultVisibility": "hidden",
     "explorer.confirmDragAndDrop": false,
-    "chat.disableAIFeatures": true,
     "editor.inlineSuggest.suppressSuggestions": true,
-    "git.autofetch": true
+    "git.autofetch": true,
+    "git-graph.commitDetailsView.location": "Docked to Bottom",
+    "vim.neovimConfigPath": "!",
+    "workbench.activityBar.location": "top",
+
+    // allow caps lock as escape 
+    "keyboard.dispatch": "keyCode",
 }
