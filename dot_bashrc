@@ -132,7 +132,7 @@ export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbi
 ## ADD ENVIRONMENTs
 export BRAVE_BOOKMARKS="$HOME/.config/BraveSoftware/Brave-Browser/Default/Bookmarks"
 export EDITOR="vim"
-export SUDO_EDITOR="vi"
+export SUDO_EDITOR="vim"
 export VISUAL="vim"
 set -o vi
 #export PATH=/home/ed/.opencode/bin:$PATH
@@ -172,8 +172,9 @@ fi
 
 # ADD ALIAS HERE
 
+alias pydoc="python3 -m pydoc "
 alias rm='rm -I'
-alias sshconfig="nvim ~/.ssh/config"
+alias sshconfig="vim ~/.ssh/config"
 alias sd="shutdown -h now"
 alias ts="sudo tailscale status"
 alias im="gpicview"
@@ -187,7 +188,6 @@ alias pf='pstree -p |less '
 alias ff='fzf'
 alias la='ls -la --group-directories-first --color=always -tr'
 alias l='ls --group-directories-first --color=always -tr'
-alias vi='nvim'
 alias bashrc='vi ~/.bashrc'
 alias hisc='history 1000 |tac|fzf| sed "s/^[ ]*[0-9]*[ ]*//"|clip' #history copy
 alias apt='sudo apt '

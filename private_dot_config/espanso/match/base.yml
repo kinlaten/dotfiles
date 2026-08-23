@@ -121,11 +121,11 @@ matches:
 
     #wiktionary english
   - triggers: [':ewk', ':wk']
-    replace: "https://en.wiktionary.org/wiki/$|$"
+    replace: "https://en.wiktionary.org/wiki/$|$#English"
 
     #wiktionary clipboard lookup (english)
   - trigger: ":cwk"
-    replace: "https://en.wiktionary.org/wiki/{{clipboard}}"
+    replace: "https://en.wiktionary.org/wiki/{{clipboard}}#English"
     vars:
       - name: clipboard
         type: clipboard
