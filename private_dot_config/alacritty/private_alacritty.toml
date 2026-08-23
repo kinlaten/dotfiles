@@ -140,4 +140,4 @@ import = [ "~/.config/alacritty/themes/everforest_dark" ] # or tokyo-night-storm
 
 [terminal.shell]
 program = "/usr/bin/bash"
-args = ["-c", "/home/linuxbrew/.linuxbrew/bin/tmux a || /home/linuxbrew/.linuxbrew/bin/tmux || tmux a || tmux || bash"]
+args = ["-c", "/home/linuxbrew/.linuxbrew/bin/tmux a || tmux || bash"]

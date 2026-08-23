@@ -28,9 +28,6 @@ matches:
   - trigger: ":eq"
     replace: "what equivalent to this?"
 
-  - trigger: ":pm"
-    replace: "programming language"
-
   - trigger: ":ht"
     replace: "how to "
 
@@ -104,7 +101,7 @@ matches:
   - trigger: ":phone"
     replace: "0410166284"
 
-  - trigger: ":ep"
+  - trigger: ":em"
     replace: "edward.phaq@gmail.com"
 
   - trigger: ":kgt"
@@ -114,27 +111,35 @@ matches:
     replace: "kincongviec@gmail.com"
 
   # URL HERE
-    #wiktionary vietnamese
+    #wikipedia
   - trigger: ":wwk"
-    replace: "https://en.wikipedia.org/wiki/"
+    replace: "https://en.wikipedia.org/wiki/$|$"
 
+    #wiktionary vietnamese
   - trigger: ":vwk"
-    replace: "https://vi.wiktionary.org/wiki/"
+    replace: "https://vi.wiktionary.org/wiki/$|$"
 
     #wiktionary english
   - triggers: [':ewk', ':wk']
-    replace: "https://en.wiktionary.org/wiki/"
+    replace: "https://en.wiktionary.org/wiki/$|$"
+
+    #wiktionary clipboard lookup (english)
+  - trigger: ":cwk"
+    replace: "https://en.wiktionary.org/wiki/{{clipboard}}"
+    vars:
+      - name: clipboard
+        type: clipboard
   
     #google image
   - trigger: ":gi"
-    replace: "https://www.google.com/search?udm=2&q="
+    replace: "https://www.google.com/search?udm=2&q=$|$"
 
     #google map
   - trigger: ":gm"
-    replace: "https://www.google.com/maps/search/"
+    replace: "https://www.google.com/maps/search/$|$"
 
   - trigger: ":gg"
-    replace: "https://www.google.com/search?q="
+    replace: "https://www.google.com/search?q=$|$"
 
 
 
