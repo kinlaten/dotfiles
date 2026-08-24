@@ -172,6 +172,7 @@ fi
 
 # ADD ALIAS HERE
 
+alias cfupdate="chezmoi re-add && chezmoi cd"
 alias pydoc="python3 -m pydoc "
 alias rm='rm -I'
 alias sshconfig="vim ~/.ssh/config"
@@ -319,9 +320,21 @@ pdf() {
 # d <dir-name>
 #
 # interactively search all subdirectories in dir-name and cd to it
+# Usage: d [-H] [dir]  (-H shows hidden dirs, default hides them)
 #
 d() {
-  local dirname root
+  local dirname root show_hidden=0
+
+  # parse opts: -H / --hidden shows hidden dirs
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -H|--hidden) show_hidden=1; shift ;;
+      -h|--help) echo "Usage: d [-H] [root-dir]"; echo "  -H, --hidden  include hidden directories"; return 0 ;;
+      --) shift; break ;;
+      -*) echo "d: unknown option: $1" >&2; return 1 ;;
+      *) break ;;
+    esac
+  done
 
   if [[ $# -eq 0 ]]; then
     root="$HOME"
@@ -329,13 +342,22 @@ d() {
     root="$1"
   fi
 
-  dirname=$(fzf --info=inline-right --walker=hidden,dir --preview 'ls -a {}' --walker-root="$root")
+  local walker_opts preview_cmd
+  if [[ $show_hidden -eq 1 ]]; then
+    walker_opts="hidden,dir"
+    preview_cmd='ls -a --color=always --group-directories-first {} 2>/dev/null'
+  else
+    walker_opts="dir"
+    preview_cmd='ls --color=always --group-directories-first {} 2>/dev/null'
+  fi
+
+  dirname=$(fzf --info=inline-right --walker="$walker_opts" --preview "$preview_cmd" --walker-root="$root")
 
   if [[ -z "$dirname" ]]; then
     return 0
   fi
 
-  builtin cd "$dirname" 
+  builtin cd "$dirname"
   #vi .
 }
 
