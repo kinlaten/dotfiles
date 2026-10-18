@@ -22,6 +22,9 @@ matches:
        - trigger: "a"
          replace: "a"
 
+  - trigger: ":ft"
+    replace: "filetype:pdf"
+
   - trigger: ":cm"
     replace: "command "
 
@@ -33,6 +36,14 @@ matches:
 
   - trigger: ":ma"
     replace: "compares to modern alternatives? should we switch or not; usecases for each"
+
+  - trigger: ":taildns"
+    replace: "https://$|$.bobcat-chuckwalla.ts.net"
+
+  - trigger: ":coo"
+    replace: "country of origin"
+
+
 
   - trigger: ":tf"
     replace: "#:~:text="

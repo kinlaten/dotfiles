@@ -132,11 +132,12 @@ export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbi
 ## ADD ENVIRONMENTs
 export BRAVE_BOOKMARKS="$HOME/.config/BraveSoftware/Brave-Browser/Default/Bookmarks"
 export EDITOR="vim"
-export SUDO_EDITOR="vim"
+export SUDO_EDITOR="/usr/bin/vi"
 export VISUAL="vim"
 set -o vi
 #export PATH=/home/ed/.opencode/bin:$PATH
 export BASH_ENV=~/.bashrc
+export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\!:\[\033[01;34m\]\w\[\033[00m\]\$'
 
 #eval "$(zoxide init bash)"
 
@@ -172,6 +173,7 @@ fi
 
 # ADD ALIAS HERE
 
+alias tm="tmux a || tmux"
 alias cfupdate="chezmoi re-add && chezmoi cd"
 alias pydoc="python3 -m pydoc "
 alias rm='rm -I'
@@ -987,3 +989,37 @@ gl-run() {
 }
 
 source ~/.github_env
+
+export PATH="/home/edward/.pixi/bin:$PATH"
+
+fzf-file-widget() {
+  local before="${READLINE_LINE:0:READLINE_POINT}"
+  local after="${READLINE_LINE:READLINE_POINT}"
+  local token="" dirpart="" q="" exp="" root=""
+  if [[ $before =~ ([^[:space:]\;\|\&\<\>\(\)]+)$ ]]; then
+    token="${BASH_REMATCH[1]}"
+  fi
+  if [[ $token == */* ]]; then
+    dirpart="${token%/*}/"
+    q="${token##*/}"
+    if [[ $dirpart == '~/'* ]]; then
+      exp="$HOME/${dirpart:2}"
+    elif [[ $dirpart == '~' ]]; then
+      exp="$HOME/"
+    else
+      exp=$(eval printf '%s' "$dirpart" 2>/dev/null) || exp="$dirpart"
+    fi
+    if [[ -d $exp ]]; then root="$exp"; fi
+  fi
+  local selected="" token_start=${#before}
+  if [[ -n $root ]]; then
+    (( token_start -= ${#token} ))
+    selected="$(__fzf_select__ --walker-root="$root" -q "$q")"
+  else
+    selected="$(__fzf_select__)"
+  fi
+  if [[ -n $selected ]]; then
+    READLINE_LINE="${before:0:$token_start}$selected${after}"
+    READLINE_POINT=$(( token_start + ${#selected} ))
+  fi
+}

@@ -35,5 +35,17 @@
     "unbind": {
       "ctrl->": "agent::AddSelectionToThread"
     }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-t": "project_symbols::Toggle"
+    }
+  },
+  {
+    "context": "Workspace",
+    "unbind": {
+      "ctrl-t": "project_symbols::Toggle"
+    }
   }
 ]

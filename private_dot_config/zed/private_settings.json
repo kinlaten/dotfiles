@@ -58,7 +58,7 @@
   },
   "vim_mode": true,
   "icon_theme": {
-    "mode": "light",
+    "mode": "dark",
     "light": "Zed (Default)",
     "dark": "Zed (Default)"
   },
@@ -66,8 +66,8 @@
   "buffer_font_size": 15,
   "theme": {
     "mode": "dark",
-    "light": "One Light",
-    "dark": "macOS Classic Dark",
+    "light": "Dayfox - opaque",
+    "dark": "Tokyo Night",
   },
   "show_completions_on_input": false
 }
